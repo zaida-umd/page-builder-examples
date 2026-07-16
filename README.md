@@ -1,0 +1,26 @@
+# Page Builder Examples
+
+Demo and client-review pages built with the [design-system page builder](https://github.com/zaida-umd/design-system-page-builder), which is vendored here as the `page-builder/` submodule.
+
+## Layout
+
+| What | Where |
+|---|---|
+| Example pages | `examples/<name>.html` |
+| Page-specific images | `images/projects/<name>/` |
+| Shared image library, components, rules | `page-builder/` (submodule) |
+
+Example pages reference their own images as `../images/projects/<name>/...` and the shared library as `../page-builder/images/...`.
+
+## Building new examples
+
+The page-builder slash commands (`/build-landing-page`, `/build-interior-page`, `/recreate-page`) write their output here. Real design projects (admissions, belonging, strategic-plan) live in their own repos — this repo is only for demos, experiments, and recreations.
+
+Do not commit video files; use a poster image for video heroes.
+
+## Setup
+
+```sh
+git clone --recurse-submodules git@github.com:zaida-umd/page-builder-examples.git
+python3 -m http.server 4177   # then open http://localhost:4177/examples/
+```
