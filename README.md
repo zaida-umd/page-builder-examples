@@ -6,11 +6,17 @@ Demo and client-review pages built with the [design-system page builder](https:/
 
 | What | Where |
 |---|---|
-| Example pages | `examples/<name>.html` |
-| Page-specific images | `images/projects/<name>/` |
+| Example pages | `<slug>/index.html` |
+| Page-specific images | `images/projects/<slug>/` |
 | Shared image library, components, rules | `page-builder/` (submodule) |
 
-Example pages reference their own images as `../images/projects/<name>/...` and the shared library as `../page-builder/images/...`.
+Example pages reference their own images as `../images/projects/<slug>/...` and the shared library as `../page-builder/images/...`.
+
+**Legacy layout.** The eight original pages still live at `examples/<name>.html`.
+That is one level below the repo root, exactly like `<slug>/index.html`, so their
+relative paths resolve identically and there is no rush to move them — but new
+pages use `<slug>/index.html`, which is what the page-builder commands write.
+Migrating the old ones is a pure `git mv` with no path edits.
 
 ## Building new examples
 
