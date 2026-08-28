@@ -924,7 +924,10 @@
        3. HERO — site home page, so full-height standard (RULES §22).
        Source centers the hero text; kept centered.
   ======================================== -->
-  <section class="umd-layout-vertical-landing">
+  <!-- No umd-layout-vertical-landing: a dark section follows immediately, and
+       the margin would open a white gap between two dark blocks (RULES §23).
+       The pathway below carries the spacing for the pair. -->
+  <section>
     <umd-element-hero data-display="standard" data-theme="dark" data-layout-text="center" data-animation>
       <img slot="image" src="../images/projects/engineering/QuantumChip_KollarLab2880x1560a.jpg"
            alt="Close-up of a quantum chip fabricated in the Kollar Lab" />
@@ -942,9 +945,18 @@
        Source renders this as a half-width image+text "preview block"
        beside the audience nav. Pathway is the DS equivalent of that
        two-column image/text promo.
+
+       On a dark band, deliberately: this is the same quantum story the hero
+       leads with, so carrying the dark treatment down through it reads as one
+       opening statement rather than two unrelated blocks.
+
+       A pathway on a dark/colored band needs inline padding — the
+       umd-layout-vertical-landing margins collapse against the band edges and
+       the pathway sits flush to the colour boundary (RULES §24). data-theme
+       does not cascade, so the pathway and its CTA each carry their own.
   ======================================== -->
-  <section class="umd-layout-vertical-landing">
-    <umd-element-pathway>
+  <section class="umd-layout-background-full-dark umd-layout-vertical-landing" style="padding: 80px 0;">
+    <umd-element-pathway data-theme="dark">
       <img slot="image" src="../images/projects/engineering/future-is-quantum1600.jpg"
            alt="The Future Is Quantum campaign graphic" />
       <p slot="eyebrow">Featured</p>
@@ -953,7 +965,7 @@
         <p>UMD is the host and lead academic partner of QWC 2026. Global attendees will convene at the Capital of Quantum and see the role Maryland and universities play in realizing quantum’s public benefit.</p>
       </div>
       <div slot="actions">
-        <umd-element-call-to-action data-display="secondary">
+        <umd-element-call-to-action data-display="secondary" data-theme="dark">
           <a href="https://umdrightnow.umd.edu/news-releases/quantum-world-congress-announces-the-university-of-maryland-as-2026-lead-academic-partner">Read More</a>
         </umd-element-call-to-action>
       </div>
@@ -1036,50 +1048,67 @@
   <!-- ========================================
        6. NEWS — sticky-columns "featured item + list" (RULES §20).
        The source weights one story well above the rest, and a straight or
-       staggered card grid flattens that. The FEATURE CARD goes in the
-       STICKY column and the browsable list in the static column — that is
-       what signals the hierarchy: one thing promoted, the rest scrollable
-       past it.
+       staggered card grid flattens that. The FEATURE CARD is the sticky
+       column and the browsable list is the static column — that is what
+       signals the hierarchy: one thing promoted, the rest scrollable.
+
+       The section heading sits ABOVE the sticky-columns set, not inside the
+       sticky column. The sticky column holds the feature (a card or a text
+       lockup) and nothing else; a heading stuffed in above the card competes
+       with the card's own headline and pushes the feature out of alignment
+       with the list it is paired against. umd-layout-vertical-landing-child
+       supplies the 48px between the heading and the set.
+
+       Light background, deliberately: the hero and pathway above are now one
+       dark block, and a second dark band here would start a stripe.
 
        The lock lives on the sticky-columns HOST (horizontal-larger); do not
        add an inner umd-layout-space-horizontal-* wrapper inside a slot, and
        use umd-layout-grid-gap-stacked for the list (RULES §33).
        data-layout-position clears the sticky nav header.
   ======================================== -->
-  <section class="umd-layout-background-full-dark umd-layout-vertical-landing">
+  <section class="umd-layout-vertical-landing">
+    <div class="umd-layout-space-horizontal-larger">
+      <div class="umd-layout-vertical-landing-child">
+        <umd-element-section-intro-wide>
+          <h2 slot="headline">News &amp; Events</h2>
+          <umd-element-call-to-action data-display="secondary" slot="actions">
+            <a href="https://eng.umd.edu/news/home">More News</a>
+          </umd-element-call-to-action>
+        </umd-element-section-intro-wide>
+      </div>
+    </div>
     <umd-element-sticky-columns
       class="umd-layout-space-horizontal-larger"
       data-layout-position="100px">
       <div slot="sticky-column">
-        <h2 class="umd-sans-largest-uppercase text-white mb-md">News &amp; Events</h2>
-        <!-- Feature card. .size-large ships upstream in
-             web-components.min.css; critical.css section 16 is a tombstone. -->
-        <umd-element-card-overlay type="image" data-theme="dark" class="size-large mb-md">
+        <!-- The feature, and only the feature. .size-large gives the taller
+             min-height (320px, 560px at 768px+) and ships upstream in
+             web-components.min.css; critical.css section 16 is a tombstone.
+             data-theme="dark" is for the image scrim, not the section — an
+             overlay card renders white text over a darkened photo whatever
+             the band behind it is doing (RULES §16). -->
+        <umd-element-card-overlay type="image" data-theme="dark" class="size-large">
           <img slot="image" src="../images/projects/engineering/article17262.largethumb.jpg"
                alt="A large group of people wearing black T-shirts stand behind a rocket with a UMD Loop banner behind them" />
           <time slot="date" datetime="2026-08-27">Aug 27, 2026</time>
           <h3 slot="headline"><a href="https://eng.umd.edu/news/story/maryland-engineering-student-organizations-meso-accomplishments-in-the-20252026-academic-year">Maryland Engineering Student Organizations (MESO):...</a></h3>
           <p slot="text">Read updates from 17 of the 49 recognized student organizations.</p>
         </umd-element-card-overlay>
-        <div class="umd-layout-grid-inline-tablet-rows">
-          <umd-element-call-to-action data-display="secondary" data-theme="dark">
-            <a href="https://eng.umd.edu/news/home">More News</a>
-          </umd-element-call-to-action>
-        </div>
       </div>
       <div slot="static-column">
         <div class="umd-layout-grid-gap-stacked">
-          <umd-element-card data-display="list" data-theme="dark" data-aligned>
+          <umd-element-card data-display="list" data-aligned>
             <a slot="image" href="https://eng.umd.edu/news/story/graham-named-honorary-asme-member"><img src="../images/projects/engineering/article17289.largethumb.jpg" alt="headshot of Dean Samuel Graham" /></a>
             <time slot="date" datetime="2026-08-26">Aug 26, 2026</time>
             <h3 slot="headline"><a href="https://eng.umd.edu/news/story/graham-named-honorary-asme-member">Graham Named Honorary ASME Member</a></h3>
           </umd-element-card>
-          <umd-element-card data-display="list" data-theme="dark" data-aligned>
+          <umd-element-card data-display="list" data-aligned>
             <a slot="image" href="https://eng.umd.edu/news/story/department-chair-delivers-plenary-talk-at-41st-international-symposium-on-combustion"><img src="../images/projects/engineering/article17288.largethumb.jpg" alt="Arnaud Trouve presenting a talk in auditorium." /></a>
             <time slot="date" datetime="2026-08-26">Aug 26, 2026</time>
             <h3 slot="headline"><a href="https://eng.umd.edu/news/story/department-chair-delivers-plenary-talk-at-41st-international-symposium-on-combustion">Department Chair Delivers Plenary Talk at 41st International...</a></h3>
           </umd-element-card>
-          <umd-element-card data-display="list" data-theme="dark" data-aligned>
+          <umd-element-card data-display="list" data-aligned>
             <a slot="image" href="https://eng.umd.edu/news/story/minta-martin-professor-norman-wereley-named-sampe-fellow"><img src="../images/projects/engineering/article17287.largethumb.jpg" alt="Norman Wereley" /></a>
             <time slot="date" datetime="2026-08-25">Aug 25, 2026</time>
             <h3 slot="headline"><a href="https://eng.umd.edu/news/story/minta-martin-professor-norman-wereley-named-sampe-fellow">Minta Martin Professor Norman Wereley Named SAMPE Fellow</a></h3>
@@ -1201,6 +1230,48 @@
     </a>
     <img slot="image" src="../page-builder/images/large/campus/footer-campus.jpg" alt="University of Maryland campus" />
   </umd-element-footer>
+
+  <!-- ========================================
+       OVERLAY CARD .size-large — shadow injection.
+       .size-large is a HOST-ONLY class: web-components.min.css sets
+       umd-element-card-overlay.size-large{min-height:560px} at 768px+, but
+       the component itself has no size-large awareness — the overlay card
+       is not among the components that read the attribute — and its shadow
+       hard-codes the image container at 424px
+       (packages/elements/source/composite/card/overlay/image.ts:185).
+
+       So the host reserves 560px and the card fills 424px of it, leaving
+       136px of dead space below a card that looks arbitrarily short. No
+       error, no console warning: the class appears to work because the box
+       really does get taller.
+
+       This raises the shadow container to match the host, gated to the same
+       768px breakpoint .size-large uses (below it the host is 320px and the
+       shadow's own 424px already exceeds it, so there is no gap to close).
+       See page-builder OVERRIDES.md, "Overlay card size-large min-height".
+  ======================================== -->
+  <script>
+    (function () {
+      var CSS_TEXT = '@media (min-width: 768px) {' +
+        '.card-overlay-image, .card-overlay-image-container { min-height: 560px; }' +
+        '}';
+      function inject(el) {
+        if (!el.shadowRoot || el.__overlaySizeLargeInjected) return;
+        el.__overlaySizeLargeInjected = true;
+        var style = document.createElement('style');
+        style.textContent = CSS_TEXT;
+        el.shadowRoot.appendChild(style);
+      }
+      function injectAll() {
+        document.querySelectorAll('umd-element-card-overlay.size-large').forEach(inject);
+      }
+      injectAll();
+      customElements.whenDefined('umd-element-card-overlay').then(function () {
+        injectAll();
+        setTimeout(injectAll, 0);
+      });
+    })();
+  </script>
 
   <!-- ========================================
        QUOTE SIZE-LARGE — shadow injection.
