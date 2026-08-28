@@ -1034,12 +1034,12 @@
   </section>
 
   <!-- ========================================
-       6. NEWS — sticky-columns feature layout.
+       6. NEWS — sticky-columns "featured item + list" (RULES §20).
        The source weights one story well above the rest, and a straight or
-       staggered card grid flattens that. Sticky columns keep the section
-       lockup pinned on the left while a feature card and its supporting
-       card list scroll on the right, which is what the source hierarchy
-       actually says.
+       staggered card grid flattens that. The FEATURE CARD goes in the
+       STICKY column and the browsable list in the static column — that is
+       what signals the hierarchy: one thing promoted, the rest scrollable
+       past it.
 
        The lock lives on the sticky-columns HOST (horizontal-larger); do not
        add an inner umd-layout-space-horizontal-* wrapper inside a slot, and
@@ -1052,22 +1052,23 @@
       data-layout-position="100px">
       <div slot="sticky-column">
         <h2 class="umd-sans-largest-uppercase text-white mb-md">News &amp; Events</h2>
-        <umd-element-call-to-action data-display="secondary" data-theme="dark">
-          <a href="https://eng.umd.edu/news/home">More News</a>
-        </umd-element-call-to-action>
+        <!-- Feature card. .size-large ships upstream in
+             web-components.min.css; critical.css section 16 is a tombstone. -->
+        <umd-element-card-overlay type="image" data-theme="dark" class="size-large mb-md">
+          <img slot="image" src="../images/projects/engineering/article17262.largethumb.jpg"
+               alt="A large group of people wearing black T-shirts stand behind a rocket with a UMD Loop banner behind them" />
+          <time slot="date" datetime="2026-08-27">Aug 27, 2026</time>
+          <h3 slot="headline"><a href="https://eng.umd.edu/news/story/maryland-engineering-student-organizations-meso-accomplishments-in-the-20252026-academic-year">Maryland Engineering Student Organizations (MESO):...</a></h3>
+          <p slot="text">Read updates from 17 of the 49 recognized student organizations.</p>
+        </umd-element-card-overlay>
+        <div class="umd-layout-grid-inline-tablet-rows">
+          <umd-element-call-to-action data-display="secondary" data-theme="dark">
+            <a href="https://eng.umd.edu/news/home">More News</a>
+          </umd-element-call-to-action>
+        </div>
       </div>
       <div slot="static-column">
         <div class="umd-layout-grid-gap-stacked">
-          <!-- Feature card. .size-large ships upstream in
-               web-components.min.css; critical.css section 16 is a tombstone. -->
-          <umd-element-card-overlay type="image" data-theme="dark" class="size-large">
-            <img slot="image" src="../images/projects/engineering/article17262.largethumb.jpg"
-                 alt="A large group of people wearing black T-shirts stand behind a rocket with a UMD Loop banner behind them" />
-            <time slot="date" datetime="2026-08-27">Aug 27, 2026</time>
-            <h3 slot="headline"><a href="https://eng.umd.edu/news/story/maryland-engineering-student-organizations-meso-accomplishments-in-the-20252026-academic-year">Maryland Engineering Student Organizations (MESO):...</a></h3>
-            <p slot="text">Read updates from 17 of the 49 recognized student organizations.</p>
-          </umd-element-card-overlay>
-
           <umd-element-card data-display="list" data-theme="dark" data-aligned>
             <a slot="image" href="https://eng.umd.edu/news/story/graham-named-honorary-asme-member"><img src="../images/projects/engineering/article17289.largethumb.jpg" alt="headshot of Dean Samuel Graham" /></a>
             <time slot="date" datetime="2026-08-26">Aug 26, 2026</time>
@@ -1096,26 +1097,37 @@
        no inline colours here. The width/alignment utilities go on the SLOT
        element itself, not a child wrapper.
 
+       The quote is 106 characters, so it takes data-visual-size="large"
+       (RULES: 150 or fewer). That attribute is NOT rendered by
+       web-components-library through 1.19.5 — it needs the quote-size
+       shadow injection at the end of this file (page-builder OVERRIDES.md,
+       "Quote size-large polyfill").
+
+       The section wrapper carries umd-layout-vertical-landing so the events
+       component below gets normal component spacing above it.
+
        NOTE: the image is a placeholder. The source's own bottom-of-page
-       background is blacked out and was not usable; swap it in here when
-       it is available. The Surve portrait is 800x588 - too small to carry a
+       background is blacked out and was not usable; swap it in when it is
+       available. The Surve portrait is 800x588 - too small to carry a
        full-viewport expand - so it is not used as the expanding image.
   ======================================== -->
-  <umd-layout-image-expand>
-    <div slot="content" class="block max-w-[480px] w-full mr-auto">
-      <umd-element-quote data-display="featured" data-theme="dark" data-visual-transparent="true">
-        <blockquote slot="quote">I strongly feel that I know what I like doing and what should be my next options to progress in my career.</blockquote>
-        <p slot="attribution">Himanshu Surve</p>
-        <div slot="actions">
-          <umd-element-call-to-action data-display="secondary" data-theme="dark">
-            <a href="https://eng.umd.edu/student-story/terps-work-himanshu-surve">Read More</a>
-          </umd-element-call-to-action>
-        </div>
-      </umd-element-quote>
-    </div>
-    <img slot="image" src="../page-builder/images/large/campus/hornbake-plaza-fall.jpg"
-         alt="Students on Hornbake Plaza in autumn" />
-  </umd-layout-image-expand>
+  <section class="umd-layout-vertical-landing">
+    <umd-layout-image-expand>
+      <div slot="content" class="block max-w-[480px] w-full mr-auto">
+        <umd-element-quote data-display="featured" data-theme="dark" data-visual-transparent="true" data-visual-size="large">
+          <blockquote slot="quote">I strongly feel that I know what I like doing and what should be my next options to progress in my career.</blockquote>
+          <p slot="attribution">Himanshu Surve</p>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="dark">
+              <a href="https://eng.umd.edu/student-story/terps-work-himanshu-surve">Read More</a>
+            </umd-element-call-to-action>
+          </div>
+        </umd-element-quote>
+      </div>
+      <img slot="image" src="../page-builder/images/large/campus/hornbake-plaza-fall.jpg"
+           alt="Students on Hornbake Plaza in autumn" />
+    </umd-layout-image-expand>
+  </section>
 
   <!-- ========================================
        8. EVENTS
@@ -1189,6 +1201,41 @@
     </a>
     <img slot="image" src="../page-builder/images/large/campus/footer-campus.jpg" alt="University of Maryland campus" />
   </umd-element-footer>
+
+  <!-- ========================================
+       QUOTE SIZE-LARGE — shadow injection.
+       data-visual-size="large" is documented in the registry but is NOT
+       rendered by web-components-library through 1.19.5: the shadow keeps
+       the default .quote-container-quote font size regardless. This
+       polyfills the intended scale, gated to the component's own
+       breakpoints (large.min 650px, desktop.min 1024px).
+       See page-builder OVERRIDES.md, "Quote size-large polyfill".
+       Retire this when the attribute ships upstream.
+  ======================================== -->
+  <script>
+    (function () {
+      var CSS_TEXT = [
+        '.quote-container-quote { font-size: 24px !important; line-height: 1.3em !important; }',
+        '@media (min-width: 650px) { .quote-container-quote { font-size: calc(24px + 0.5vw) !important; } }',
+        '@media (min-width: 1024px) { .quote-container-quote { font-size: 32px !important; } }'
+      ].join('\n');
+      function inject(el) {
+        if (!el.shadowRoot || el.__quoteLargeInjected) return;
+        el.__quoteLargeInjected = true;
+        var style = document.createElement('style');
+        style.textContent = CSS_TEXT;
+        el.shadowRoot.appendChild(style);
+      }
+      function injectAll() {
+        document.querySelectorAll('umd-element-quote[data-visual-size="large"]').forEach(inject);
+      }
+      injectAll();
+      customElements.whenDefined('umd-element-quote').then(function () {
+        injectAll();
+        setTimeout(injectAll, 0);
+      });
+    })();
+  </script>
 
   <!-- ========================================
        GRID ENTRY ANIMATIONS
