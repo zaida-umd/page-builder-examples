@@ -1081,10 +1081,18 @@
     <umd-element-sticky-columns
       class="umd-layout-space-horizontal-larger"
       data-layout-position="100px">
-      <div slot="sticky-column">
-        <!-- The feature, and only the feature. .size-large gives the taller
-             min-height (320px, 560px at 768px+) and ships upstream in
-             web-components.min.css; critical.css section 16 is a tombstone.
+      <!-- umd-layout-grid-gap-stacked is doing real work here, not cosmetics.
+           .size-large sets min-height:560px on the HOST, and the card's shadow
+           fills it with height:100% — but a percentage height only resolves
+           against a parent with a DEFINITE height. As a plain block child the
+           host is height:auto with a 560px floor, so height:100% does not
+           resolve, the shadow falls back to its own min-height:424px, and the
+           card renders 424px inside a 560px box. Making the slot a grid
+           stretches the item to a definite height and the card fills properly.
+           This is why .size-large works in the DS's own feature grids and
+           looked broken here. -->
+      <div slot="sticky-column" class="umd-layout-grid-gap-stacked">
+        <!-- The feature, and only the feature.
              data-theme="dark" is for the image scrim, not the section — an
              overlay card renders white text over a darkened photo whatever
              the band behind it is doing (RULES §16). -->
@@ -1127,10 +1135,10 @@
        element itself, not a child wrapper.
 
        The quote is 106 characters, so it takes data-visual-size="large"
-       (RULES: 150 or fewer). That attribute is NOT rendered by
-       web-components-library through 1.19.5 — it needs the quote-size
-       shadow injection at the end of this file (page-builder OVERRIDES.md,
-       "Quote size-large polyfill").
+       (RULES: 150 or fewer). That attribute renders NATIVELY in 1.19.5 —
+       verified 32px large vs 22px default at desktop — so it needs no
+       polyfill. The old quote-size shadow injection was written against
+       1.18.12 and is now a no-op; do not re-add it.
 
        The section wrapper carries umd-layout-vertical-landing so the events
        component below gets normal component spacing above it.
@@ -1230,83 +1238,6 @@
     </a>
     <img slot="image" src="../page-builder/images/large/campus/footer-campus.jpg" alt="University of Maryland campus" />
   </umd-element-footer>
-
-  <!-- ========================================
-       OVERLAY CARD .size-large — shadow injection.
-       .size-large is a HOST-ONLY class: web-components.min.css sets
-       umd-element-card-overlay.size-large{min-height:560px} at 768px+, but
-       the component itself has no size-large awareness — the overlay card
-       is not among the components that read the attribute — and its shadow
-       hard-codes the image container at 424px
-       (packages/elements/source/composite/card/overlay/image.ts:185).
-
-       So the host reserves 560px and the card fills 424px of it, leaving
-       136px of dead space below a card that looks arbitrarily short. No
-       error, no console warning: the class appears to work because the box
-       really does get taller.
-
-       This raises the shadow container to match the host, gated to the same
-       768px breakpoint .size-large uses (below it the host is 320px and the
-       shadow's own 424px already exceeds it, so there is no gap to close).
-       See page-builder OVERRIDES.md, "Overlay card size-large min-height".
-  ======================================== -->
-  <script>
-    (function () {
-      var CSS_TEXT = '@media (min-width: 768px) {' +
-        '.card-overlay-image, .card-overlay-image-container { min-height: 560px; }' +
-        '}';
-      function inject(el) {
-        if (!el.shadowRoot || el.__overlaySizeLargeInjected) return;
-        el.__overlaySizeLargeInjected = true;
-        var style = document.createElement('style');
-        style.textContent = CSS_TEXT;
-        el.shadowRoot.appendChild(style);
-      }
-      function injectAll() {
-        document.querySelectorAll('umd-element-card-overlay.size-large').forEach(inject);
-      }
-      injectAll();
-      customElements.whenDefined('umd-element-card-overlay').then(function () {
-        injectAll();
-        setTimeout(injectAll, 0);
-      });
-    })();
-  </script>
-
-  <!-- ========================================
-       QUOTE SIZE-LARGE — shadow injection.
-       data-visual-size="large" is documented in the registry but is NOT
-       rendered by web-components-library through 1.19.5: the shadow keeps
-       the default .quote-container-quote font size regardless. This
-       polyfills the intended scale, gated to the component's own
-       breakpoints (large.min 650px, desktop.min 1024px).
-       See page-builder OVERRIDES.md, "Quote size-large polyfill".
-       Retire this when the attribute ships upstream.
-  ======================================== -->
-  <script>
-    (function () {
-      var CSS_TEXT = [
-        '.quote-container-quote { font-size: 24px !important; line-height: 1.3em !important; }',
-        '@media (min-width: 650px) { .quote-container-quote { font-size: calc(24px + 0.5vw) !important; } }',
-        '@media (min-width: 1024px) { .quote-container-quote { font-size: 32px !important; } }'
-      ].join('\n');
-      function inject(el) {
-        if (!el.shadowRoot || el.__quoteLargeInjected) return;
-        el.__quoteLargeInjected = true;
-        var style = document.createElement('style');
-        style.textContent = CSS_TEXT;
-        el.shadowRoot.appendChild(style);
-      }
-      function injectAll() {
-        document.querySelectorAll('umd-element-quote[data-visual-size="large"]').forEach(inject);
-      }
-      injectAll();
-      customElements.whenDefined('umd-element-quote').then(function () {
-        injectAll();
-        setTimeout(injectAll, 0);
-      });
-    })();
-  </script>
 
   <!-- ========================================
        GRID ENTRY ANIMATIONS
