@@ -316,13 +316,16 @@
                     > a.umd-sans-smaller (or button for dropdowns)
        - Dropdown: sibling div.umd-shell-utility-links[aria-hidden] panel
 
-       TWO LAYERS — keep them separate:
+       THREE LAYERS — keep them separate:
        A. BASE (unscoped) — the reusable .umd-shell-utility-item pattern.
           Used in the nav-header utility slot AND reused in pathway /
           banner-promo / section-intro action slots (RULES.md §5). These
           rules MUST stay unscoped or the reuse renders unstyled.
        B. NAV-HEADER (scoped) — overrides the shadow ::slotted(*) gap:24px
           and adds dropdown anchoring + panel. Only meaningful in the slot.
+       C. FLAT LINKS (scoped, gated) — bare <a> children of the slot, which
+          layer A never matches because every one of its selectors goes
+          through .umd-shell-utility-item.
        ============================================================ */
 
     /* ---- A. BASE: reusable shell-item pattern (do NOT scope) ---- */
@@ -349,16 +352,49 @@
     /* Override the shadow ::slotted(*) gap:24px (the wrapper margins above
        handle item spacing in the shell pattern).
 
-       GATED ON :has(.umd-shell-utility-item) — this reset is ONLY correct for
-       the shell pattern, where each item supplies its own 16+1+16px
-       margin/border separator. A slot holding plain <a> children has no such
-       margins, so an unconditional `gap: 0` collapsed them into a single
-       run-on string of links. The shadow's own gap:24px is the right default
-       there, so leave it alone. Projects using flat links then need no spacing
-       override at all — only link colour/decoration, which the BASE layer
-       above does not cover for bare <a>. */
+       GATED ON :has(.umd-shell-utility-item) — this reset is ONLY correct for the
+       shell pattern, where each item supplies its own 16+1+16px margin/border
+       separator. A slot holding plain <a> children has no such margins, so an
+       unconditional `gap: 0` collapsed them into a single run-on string of links.
+       The shadow's own gap:24px is the right default there, so leave it alone.
+       Projects using flat links then need no spacing override at all — only link
+       colour/decoration, which layer C below now supplies. */
     umd-element-navigation-header div[slot="utility-navigation"]:has(.umd-shell-utility-item) {
       gap: 0;
+    }
+
+    /* ---- C. FLAT LINKS: bare <a> children of the utility slot ---- */
+    /* WHY THIS EXISTS. Layer A styles `.umd-shell-utility-item a` — every one of
+       its selectors runs through that wrapper class. A slot holding plain <a>
+       children matches NONE of it, and the component's own shadow ::slotted(*)
+       reaches only the slotted div, never its descendants. So a bare <a> renders
+       browser-default blue-and-underlined, on a white header, with no error.
+
+       That is not an edge case: TEMPLATE.html's own utility-navigation example is
+       bare <a>, so it is the pattern most pages are built from. Before this layer
+       existed the gap was noted in the comment above and left open, and every
+       project rediscovered it and hand-wrote the same override in its own CSS
+       (admissions-design/shared/chrome.css is one such copy). Fixing it here means
+       every page inlining critical.css gets it for free.
+
+       GATED with :not(:has(...)) — the exact mirror of layer B's gate — so these
+       rules never touch the shell pattern, where layer A already owns the anchors
+       and the wrapper supplies its own separators. The two patterns stay disjoint.
+
+       No `gap` is set: the shadow's own gap:24px is correct for flat links, and
+       layer B deliberately leaves it alone. */
+    umd-element-navigation-header div[slot="utility-navigation"]:not(:has(.umd-shell-utility-item)) a {
+      color: #242424;
+      font-family: "Interstate", Helvetica, Arial, Verdana, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.25;
+      text-decoration: none;
+      transition: color 0.3s ease-in-out;
+    }
+    umd-element-navigation-header div[slot="utility-navigation"]:not(:has(.umd-shell-utility-item)) a:hover,
+    umd-element-navigation-header div[slot="utility-navigation"]:not(:has(.umd-shell-utility-item)) a:focus {
+      color: #E21833;
     }
     umd-element-navigation-header div[slot="utility-navigation"] .umd-shell-utility-item {
       position: relative;
@@ -933,14 +969,18 @@
        DS gradient underline instead of browser-default styling (§34).
   ======================================== -->
   <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-larger">
-      <umd-element-section-intro>
+    <!-- Intro and tabs share ONE section. Two sections would apply full
+         section rhythm between a heading and the component it introduces,
+         stranding the heading; the gap belongs to
+         umd-layout-vertical-landing-child, which is 48px at desktop and goes
+         directly on section-intro (RULES §10).
+         Tabs on a landing page lock to umd-layout-space-horizontal-small and
+         centre — wider locks let the tab row sprawl away from the centred
+         intro above it (RULES §12). -->
+    <div class="umd-layout-space-horizontal-small">
+      <umd-element-section-intro class="umd-layout-vertical-landing-child">
         <h2 slot="headline">Information for...</h2>
       </umd-element-section-intro>
-    </div>
-  </section>
-  <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-normal">
       <umd-element-tabs>
         <div slot="tabs">
           <div data-title="Students">
@@ -994,75 +1034,88 @@
   </section>
 
   <!-- ========================================
-       6. NEWS — dark band, mirroring the source's dark textured
-       "News & Events" grid. Masonry + overlay cards rather than a
-       straight 4-up grid: the source gives one story more weight than
-       the rest, and every story has an image (RULES §16 — use the
-       image variant when the source has one).
-       Masonry locks to umd-layout-space-horizontal-normal (§13).
+       6. NEWS — sticky-columns feature layout.
+       The source weights one story well above the rest, and a straight or
+       staggered card grid flattens that. Sticky columns keep the section
+       lockup pinned on the left while a feature card and its supporting
+       card list scroll on the right, which is what the source hierarchy
+       actually says.
+
+       The lock lives on the sticky-columns HOST (horizontal-larger); do not
+       add an inner umd-layout-space-horizontal-* wrapper inside a slot, and
+       use umd-layout-grid-gap-stacked for the list (RULES §33).
+       data-layout-position clears the sticky nav header.
   ======================================== -->
   <section class="umd-layout-background-full-dark umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-larger">
-      <umd-element-section-intro-wide data-theme="dark">
-        <h2 slot="headline">News &amp; Events</h2>
-        <umd-element-call-to-action data-display="secondary" data-theme="dark" slot="actions">
+    <umd-element-sticky-columns
+      class="umd-layout-space-horizontal-larger"
+      data-layout-position="100px">
+      <div slot="sticky-column">
+        <h2 class="umd-sans-largest-uppercase text-white mb-md">News &amp; Events</h2>
+        <umd-element-call-to-action data-display="secondary" data-theme="dark">
           <a href="https://eng.umd.edu/news/home">More News</a>
         </umd-element-call-to-action>
-      </umd-element-section-intro-wide>
-    </div>
-    <div class="umd-layout-space-horizontal-normal">
-      <div class="umd-layout-grid-masonry">
-        <umd-element-card-overlay type="image" data-theme="dark">
-          <img slot="image" src="../images/projects/engineering/article17262.largethumb.jpg"
-               alt="A large group of people wearing black T-shirts stand behind a rocket with a UMD Loop banner behind them" />
-          <time slot="date" datetime="2026-08-27">Aug 27, 2026</time>
-          <h3 slot="headline"><a href="https://eng.umd.edu/news/story/maryland-engineering-student-organizations-meso-accomplishments-in-the-20252026-academic-year">Maryland Engineering Student Organizations (MESO):...</a></h3>
-          <p slot="text">Read updates from 17 of the 49 recognized student organizations.</p>
-        </umd-element-card-overlay>
-        <umd-element-card-overlay type="image" data-theme="dark">
-          <img slot="image" src="../images/projects/engineering/article17289.largethumb.jpg"
-               alt="headshot of Dean Samuel Graham" />
-          <time slot="date" datetime="2026-08-26">Aug 26, 2026</time>
-          <h3 slot="headline"><a href="https://eng.umd.edu/news/story/graham-named-honorary-asme-member">Graham Named Honorary ASME Member</a></h3>
-        </umd-element-card-overlay>
-        <umd-element-card-overlay type="image" data-theme="dark">
-          <img slot="image" src="../images/projects/engineering/article17288.largethumb.jpg"
-               alt="Arnaud Trouvé presenting a talk in auditorium." />
-          <time slot="date" datetime="2026-08-26">Aug 26, 2026</time>
-          <h3 slot="headline"><a href="https://eng.umd.edu/news/story/department-chair-delivers-plenary-talk-at-41st-international-symposium-on-combustion">Department Chair Delivers Plenary Talk at 41st International...</a></h3>
-        </umd-element-card-overlay>
-        <umd-element-card-overlay type="image" data-theme="dark">
-          <img slot="image" src="../images/projects/engineering/article17287.largethumb.jpg"
-               alt="Norman Wereley" />
-          <time slot="date" datetime="2026-08-25">Aug 25, 2026</time>
-          <h3 slot="headline"><a href="https://eng.umd.edu/news/story/minta-martin-professor-norman-wereley-named-sampe-fellow">Minta Martin Professor Norman Wereley Named SAMPE Fellow</a></h3>
-        </umd-element-card-overlay>
       </div>
-    </div>
+      <div slot="static-column">
+        <div class="umd-layout-grid-gap-stacked">
+          <!-- Feature card. .size-large ships upstream in
+               web-components.min.css; critical.css section 16 is a tombstone. -->
+          <umd-element-card-overlay type="image" data-theme="dark" class="size-large">
+            <img slot="image" src="../images/projects/engineering/article17262.largethumb.jpg"
+                 alt="A large group of people wearing black T-shirts stand behind a rocket with a UMD Loop banner behind them" />
+            <time slot="date" datetime="2026-08-27">Aug 27, 2026</time>
+            <h3 slot="headline"><a href="https://eng.umd.edu/news/story/maryland-engineering-student-organizations-meso-accomplishments-in-the-20252026-academic-year">Maryland Engineering Student Organizations (MESO):...</a></h3>
+            <p slot="text">Read updates from 17 of the 49 recognized student organizations.</p>
+          </umd-element-card-overlay>
+
+          <umd-element-card data-display="list" data-theme="dark" data-aligned>
+            <a slot="image" href="https://eng.umd.edu/news/story/graham-named-honorary-asme-member"><img src="../images/projects/engineering/article17289.largethumb.jpg" alt="headshot of Dean Samuel Graham" /></a>
+            <time slot="date" datetime="2026-08-26">Aug 26, 2026</time>
+            <h3 slot="headline"><a href="https://eng.umd.edu/news/story/graham-named-honorary-asme-member">Graham Named Honorary ASME Member</a></h3>
+          </umd-element-card>
+          <umd-element-card data-display="list" data-theme="dark" data-aligned>
+            <a slot="image" href="https://eng.umd.edu/news/story/department-chair-delivers-plenary-talk-at-41st-international-symposium-on-combustion"><img src="../images/projects/engineering/article17288.largethumb.jpg" alt="Arnaud Trouve presenting a talk in auditorium." /></a>
+            <time slot="date" datetime="2026-08-26">Aug 26, 2026</time>
+            <h3 slot="headline"><a href="https://eng.umd.edu/news/story/department-chair-delivers-plenary-talk-at-41st-international-symposium-on-combustion">Department Chair Delivers Plenary Talk at 41st International...</a></h3>
+          </umd-element-card>
+          <umd-element-card data-display="list" data-theme="dark" data-aligned>
+            <a slot="image" href="https://eng.umd.edu/news/story/minta-martin-professor-norman-wereley-named-sampe-fellow"><img src="../images/projects/engineering/article17287.largethumb.jpg" alt="Norman Wereley" /></a>
+            <time slot="date" datetime="2026-08-25">Aug 25, 2026</time>
+            <h3 slot="headline"><a href="https://eng.umd.edu/news/story/minta-martin-professor-norman-wereley-named-sampe-fellow">Minta Martin Professor Norman Wereley Named SAMPE Fellow</a></h3>
+          </umd-element-card>
+        </div>
+      </div>
+    </umd-element-sticky-columns>
   </section>
 
   <!-- ========================================
-       7. STUDENT QUOTE
-       Source renders this as an image tile inside the news grid with
-       the pull-quote laid over it, linking to the student story.
-       umd-element-quote featured is the DS equivalent and keeps the
-       portrait. Quote locks to horizontal-normal (§13).
+       7. STUDENT QUOTE — in an image-expand, so the page ends on
+       something visual rather than trailing off after a card list.
+       data-visual-transparent="true" drops the quote's opaque card so the
+       image shows through; data-theme="dark" then owns all text colour, so
+       no inline colours here. The width/alignment utilities go on the SLOT
+       element itself, not a child wrapper.
+
+       NOTE: the image is a placeholder. The source's own bottom-of-page
+       background is blacked out and was not usable; swap it in here when
+       it is available. The Surve portrait is 800x588 - too small to carry a
+       full-viewport expand - so it is not used as the expanding image.
   ======================================== -->
-  <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-normal">
-      <umd-element-quote data-display="featured">
-        <img slot="image" src="../images/projects/engineering/Himanshu_Surve_Nokia_2.jpg"
-             alt="Terps at Work: Himanshu Surve" />
+  <umd-layout-image-expand>
+    <div slot="content" class="block max-w-[480px] w-full mr-auto">
+      <umd-element-quote data-display="featured" data-theme="dark" data-visual-transparent="true">
         <blockquote slot="quote">I strongly feel that I know what I like doing and what should be my next options to progress in my career.</blockquote>
         <p slot="attribution">Himanshu Surve</p>
         <div slot="actions">
-          <umd-element-call-to-action data-display="secondary">
+          <umd-element-call-to-action data-display="secondary" data-theme="dark">
             <a href="https://eng.umd.edu/student-story/terps-work-himanshu-surve">Read More</a>
           </umd-element-call-to-action>
         </div>
       </umd-element-quote>
     </div>
-  </section>
+    <img slot="image" src="../page-builder/images/large/campus/hornbake-plaza-fall.jpg"
+         alt="Students on Hornbake Plaza in autumn" />
+  </umd-layout-image-expand>
 
   <!-- ========================================
        8. EVENTS
