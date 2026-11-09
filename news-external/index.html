@@ -1376,12 +1376,12 @@
   </section>
 
   <!-- ============================================================
-       4. STICKY COLUMNS — overlay feature + article list (no CTAs)
-       No CTA in this layout, so the source line is the only indicator.
+       4. STICKY COLUMNS — overlay feature + article list, with CTAs
+       CTAs added here (the reference layout has none) to show the external-link arrow in list cards.
   ============================================================ -->
   <section class="umd-layout-vertical-landing">
     <h2 class="umd-layout-vertical-landing-child umd-layout-space-horizontal-larger text-black umd-sans-large">STICKY FEATURE + LIST</h2>
-    <p class="umd-layout-space-horizontal-larger umd-layout-vertical-landing-child"><strong>4a.</strong> Site feature; list mixes site with external (image + summary / no image / no summary / no image + no summary). This layout has no CTAs — the source is the indicator.</p>
+    <p class="umd-layout-space-horizontal-larger umd-layout-vertical-landing-child"><strong>4a.</strong> Site feature; list mixes site with external (image + summary / no image / no summary / no image + no summary). CTAs added to every item (the reference layout has none): external items get the external-link arrow, site items the standard arrow.</p>
     <umd-element-sticky-columns class="umd-layout-space-horizontal-larger" data-layout-position="100px">
       <div slot="sticky-column">
         <div class="umd-layout-grid-gap-stacked">
@@ -1392,6 +1392,9 @@
             <p slot="headline"><a href="/news/hannah-zierden-aiche"><span>Hannah Zierden Named Amongst AIChE’s Class of 35 Under 35</span></a></p>
             <time slot="date" datetime="2026-11-09">Nov 9, 2026</time>
             <div slot="text"><p>Hannah Zierden, an assistant professor in the Department of Chemical and Biomolecular Engineering, has been named amongst the American Institute of Chemical Engineers (AIChE) Class of 35 Under 35.</p></div>
+            <div slot="actions">
+              <umd-element-call-to-action data-display="secondary" data-theme="dark"><a href="/news/hannah-zierden-aiche">Read More</a></umd-element-call-to-action>
+            </div>
           </umd-element-card-overlay>
         </div>
       </div>
@@ -1403,6 +1406,9 @@
           <p slot="headline"><a href="/news/nam-augue-fermentum"><span>Nam Augue Fermentum Quis Odio ut Faucibus</span></a></p>
           <time slot="date" datetime="2026-11-09">Nov 9, 2026</time>
           <div slot="text"><p>A hendrerit aliquam viverra proin posuere pretium venenatis velit tincidunt leo ut justo sed, risus eros pharetra.</p></div>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="none"><a href="/news/nam-augue-fermentum">Read More</a></umd-element-call-to-action>
+          </div>
         </umd-element-article>
         <!-- EXTERNAL — image + summary -->
         <umd-element-article data-theme="none" data-display="list">
@@ -1411,6 +1417,9 @@
           <p slot="headline"><a href="https://www.example.com/ant-societies" target="_blank" rel="noopener"><span>Ant Societies Rose by Trading Individual Protection for Collective Power</span></a></p>
           <p slot="date"><time datetime="2026-01-14">Jan 14, 2026</time> | <em>The New York Times</em></p>
           <div slot="text"><p>Building prolific ant legions takes tons of resources—but a new study finds colonies offset the cost by investing less in each individual worker.</p></div>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="none"><a href="https://www.example.com/ant-societies" target="_blank" rel="noopener">Read More<span class="sr-only"> (opens in a new tab)</span></a></umd-element-call-to-action>
+          </div>
         </umd-element-article>
         <!-- SITE -->
         <umd-element-article data-theme="none" data-display="list">
@@ -1419,6 +1428,9 @@
           <p slot="headline"><a href="/news/et-justo-suspendisse"><span>Et Justo Suspendisse Magna Ante Nascetur Venenatis</span></a></p>
           <time slot="date" datetime="2026-11-09">Nov 9, 2026</time>
           <div slot="text"><p>Porta urna sagittis pretium gravida bibendum potenti turpis, natus enim ridiculus primis posuere semper a venenatis.</p></div>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="none"><a href="/news/et-justo-suspendisse">Read More</a></umd-element-call-to-action>
+          </div>
         </umd-element-article>
         <!-- EXTERNAL — no image -->
         <umd-element-article data-theme="none" data-display="list">
@@ -1426,6 +1438,9 @@
           <p slot="headline"><a href="https://www.example.com/orchids-evolved-fast" target="_blank" rel="noopener"><span>[Seminar Blog] Perfume Flower Orchids Evolved Exceptionally Fast</span></a></p>
           <p slot="date"><time datetime="2026-01-14">Jan 14, 2026</time> | <em>Science News</em></p>
           <div slot="text"><p>Researchers traced the scent chemistry of perfume flower orchids and found it diversified far faster than expected.</p></div>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="none"><a href="https://www.example.com/orchids-evolved-fast" target="_blank" rel="noopener">Read More<span class="sr-only"> (opens in a new tab)</span></a></umd-element-call-to-action>
+          </div>
         </umd-element-article>
         <!-- EXTERNAL — no summary -->
         <umd-element-article data-theme="none" data-display="list">
@@ -1433,19 +1448,25 @@
           <p slot="eyebrow"><a href="/news/bold-brave-solutions">Bold &amp; Brave Solutions</a></p>
           <p slot="headline"><a href="https://www.example.com/terp-startups" target="_blank" rel="noopener"><span>Terp Startups Draw Record Investment in Maryland Tech Corridor</span></a></p>
           <p slot="date"><time datetime="2026-11-02">Nov 2, 2026</time> | <em>The Washington Post</em></p>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="none"><a href="https://www.example.com/terp-startups" target="_blank" rel="noopener">Read More<span class="sr-only"> (opens in a new tab)</span></a></umd-element-call-to-action>
+          </div>
         </umd-element-article>
         <!-- EXTERNAL — no image, no summary -->
         <umd-element-article data-theme="none" data-display="list">
           <p slot="eyebrow"><a href="/news/stronger-communities">Stronger Communities</a></p>
           <p slot="headline"><a href="https://www.example.com/et-justo-suspendisse" target="_blank" rel="noopener"><span>Et Justo Suspendisse Magna Ante Nascetur Venenatis</span></a></p>
           <p slot="date"><time datetime="2026-11-04">Nov 4, 2026</time> | <em>The Baltimore Sun</em></p>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="none"><a href="https://www.example.com/et-justo-suspendisse" target="_blank" rel="noopener">Read More<span class="sr-only"> (opens in a new tab)</span></a></umd-element-call-to-action>
+          </div>
         </umd-element-article>
       </div>
     </umd-element-sticky-columns>
   </section>
 
   <section class="umd-layout-vertical-landing">
-    <p class="umd-layout-space-horizontal-larger umd-layout-vertical-landing-child"><strong>4b.</strong> External feature (image, no summary) in the sticky column; list is site news with one external item.</p>
+    <p class="umd-layout-space-horizontal-larger umd-layout-vertical-landing-child"><strong>4b.</strong> External feature (image, no summary) in the sticky column; list is site news with one external item. CTAs on every item.</p>
     <umd-element-sticky-columns class="umd-layout-space-horizontal-larger" data-layout-position="100px">
       <div slot="sticky-column">
         <div class="umd-layout-grid-gap-stacked">
@@ -1455,6 +1476,9 @@
             <p slot="eyebrow"><a href="/news/entomology">Entomology</a></p>
             <p slot="headline"><a href="https://www.example.com/ant-societies" target="_blank" rel="noopener"><span>Ant Societies Rose by Trading Individual Protection for Collective Power</span></a></p>
             <p slot="date"><time datetime="2026-01-14">Jan 14, 2026</time> | <em>The New York Times</em></p>
+            <div slot="actions">
+              <umd-element-call-to-action data-display="secondary" data-theme="dark"><a href="https://www.example.com/ant-societies" target="_blank" rel="noopener">Read More<span class="sr-only"> (opens in a new tab)</span></a></umd-element-call-to-action>
+            </div>
           </umd-element-card-overlay>
         </div>
       </div>
@@ -1466,6 +1490,9 @@
           <p slot="headline"><a href="/news/nam-augue-fermentum"><span>Nam Augue Fermentum Quis Odio ut Faucibus</span></a></p>
           <time slot="date" datetime="2026-11-09">Nov 9, 2026</time>
           <div slot="text"><p>A hendrerit aliquam viverra proin posuere pretium venenatis velit tincidunt leo ut justo sed, risus eros pharetra.</p></div>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="none"><a href="/news/nam-augue-fermentum">Read More</a></umd-element-call-to-action>
+          </div>
         </umd-element-article>
         <!-- SITE -->
         <umd-element-article data-theme="none" data-display="list">
@@ -1474,6 +1501,9 @@
           <p slot="headline"><a href="/news/et-justo-suspendisse"><span>Et Justo Suspendisse Magna Ante Nascetur Venenatis</span></a></p>
           <time slot="date" datetime="2026-11-09">Nov 9, 2026</time>
           <div slot="text"><p>Porta urna sagittis pretium gravida bibendum potenti turpis, natus enim ridiculus primis posuere semper a venenatis.</p></div>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="none"><a href="/news/et-justo-suspendisse">Read More</a></umd-element-call-to-action>
+          </div>
         </umd-element-article>
         <!-- EXTERNAL — image + summary -->
         <umd-element-article data-theme="none" data-display="list">
@@ -1482,6 +1512,9 @@
           <p slot="headline"><a href="https://www.example.com/aiche-35-under-35" target="_blank" rel="noopener"><span>Hannah Zierden Named Amongst AIChE’s Class of 35 Under 35</span></a></p>
           <p slot="date"><time datetime="2026-11-09">Nov 9, 2026</time> | <em>AIChE</em></p>
           <div slot="text"><p>Hannah Zierden, an assistant professor in the Department of Chemical and Biomolecular Engineering, has been named amongst the AIChE Class of 35 Under 35.</p></div>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="none"><a href="https://www.example.com/aiche-35-under-35" target="_blank" rel="noopener">Read More<span class="sr-only"> (opens in a new tab)</span></a></umd-element-call-to-action>
+          </div>
         </umd-element-article>
       </div>
     </umd-element-sticky-columns>
