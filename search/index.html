@@ -3,13 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Undergraduate — College of Computer, Mathematical, and Natural Sciences | University of Maryland</title>
+  <!-- SHARED:head-meta:START — generated from shared/head-meta.html; do not edit here -->
+  <!-- ============================================================
+       SHARED CHROME — site-wide <head> meta
+       Inlined into every page by page-builder/tools/build-chrome.py.
+       Edit here, not in pages/*.html.
 
-  <link rel="stylesheet" href="https://unpkg.com/@universityofmaryland/web-styles-library/css/font-faces.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@universityofmaryland/web-styles-library/css/tokens.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@universityofmaryland/web-styles-library/css/base.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@universityofmaryland/web-styles-library/css/typography.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@universityofmaryland/web-styles-library/css/web-components.min.css">
+       SITE-WIDE meta only. A page's own <title> and
+       <meta name="description"> differ per page and stay in the page,
+       below this region.
+
+       The noindex pair below is the scaffold default: a design project
+       is a prototype or client review, and should not surface in
+       search. DELETE IT before the site goes live for real.
+
+       A robots.txt is not an alternative — it is only fetched from a
+       HOST root, and a GitHub Pages project site is served from
+       /<repo>/, so this meta is the only mechanism that applies there.
+       The googlebot line is a belt-and-braces duplicate of the robots
+       line.
+
+       Delete this file if the project has none; the inliner skips a
+       region whose source file is absent.
+  ============================================================ -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <!-- SHARED:head-meta:END -->
+  <title>Search | University of Maryland</title>
+
+  <!-- ============================================================
+       UMD Critical CSS — verbatim copy of styles/critical.css.
+  ============================================================ -->
   <style>
     /* ============================================================
        1. COMPONENT REGISTRATION GAP-FILLS
@@ -755,386 +779,414 @@
   </style>
 
   <script src="https://unpkg.com/@universityofmaryland/web-components-library@1.18.12/dist/cdn.js"></script>
+  <!-- SHARED:gate:START — generated from shared/gate.html; do not edit here -->
+  <!-- ============================================================
+       PROTOTYPE ACCESS GATE
+       Inlined into the <head> of every page by
+       page-builder/tools/build-chrome.py. Edit here, not in pages/*.html.
+
+       Keeps a GitHub Pages prototype blank for anyone without the shared
+       credentials, and — with the noindex meta chrome.py stamps into every
+       page — out of search results.
+
+       It is NOT access control. The whole check ships to the browser, so the
+       markup is retrievable with `curl` and the hash can be attacked offline.
+       Keep the project repo PRIVATE and put nothing behind it that would
+       matter if it leaked. See page-builder/scripts/gate.js for the full
+       reasoning.
+
+       DELETE THIS FILE on a project that should be public — the inliner skips
+       a region whose source file is absent, and the next build-chrome.py run
+       strips the block back out of every page.
+
+       ADD AN ACCOUNT — never type a password into this file by hand:
+
+           python3 page-builder/tools/gate.py --write shared/gate.html
+
+       That prompts for the username and password without echoing them, and
+       rewrites the block between the GATE:USERS markers below. The plaintext
+       password is never written to this repo.
+  ============================================================ -->
+  <style>
+    /* The lock is CSS, not JavaScript, and it is unconditional: the page is
+       hidden from the first paint and STAYS hidden if gate.js 404s, throws,
+       or scripting is off. gate.js adds .umd-gate-unlocked only after a
+       password verifies. Do not move this into a JS-added class — that
+       inverts it into fail-open. */
+    html:not(.umd-gate-unlocked) { overflow: hidden; }
+    html:not(.umd-gate-unlocked) body { visibility: hidden; }
+    html:not(.umd-gate-unlocked) body > .umd-gate { visibility: visible; }
+
+    .umd-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-y: auto;
+      background: #000;
+      font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+    }
+
+    .umd-gate__panel {
+      width: 100%;
+      max-width: 420px;
+      margin: auto;
+      padding: 40px 32px;
+      background: #1a1a1a;
+      border-top: 4px solid #e21833;
+      color: #fff;
+      text-align: left;
+    }
+
+    .umd-gate__eyebrow {
+      margin: 0 0 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #ffd200;
+    }
+
+    .umd-gate__title {
+      margin: 0 0 8px;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .umd-gate__message {
+      margin: 0 0 24px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #d1d1d1;
+    }
+
+    .umd-gate__label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #e6e6e6;
+    }
+
+    .umd-gate__input {
+      display: block;
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 16px;   /* below 16px, iOS Safari zooms the page on focus */
+      color: #000;
+      background: #fff;
+      border: 1px solid #757575;
+      border-radius: 0;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .umd-gate__input:focus-visible {
+      outline: 2px solid #ffd200;
+      outline-offset: 2px;
+    }
+
+    .umd-gate__submit {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #e21833;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .umd-gate__submit:hover { background: #c1152b; }
+    .umd-gate__submit:disabled { background: #757575; cursor: default; }
+    .umd-gate__submit:focus-visible { outline: 2px solid #ffd200; outline-offset: 2px; }
+
+    /* Always in the layout, so filling it in on a failed attempt does not
+       shove the button out from under the cursor. */
+    .umd-gate__error {
+      min-height: 20px;
+      margin: 0 0 8px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #ff9a9a;
+    }
+
+    .umd-gate__note {
+      margin: 16px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #a8a8a8;
+    }
+
+    /* gate.js never arrived — say so, rather than leaving a blank page that
+       looks like a broken deploy. Still locked: the rule above is untouched. */
+    html.umd-gate-error body::before {
+      content: "This prototype could not load its sign-in. Check that page-builder/scripts/gate.js is published alongside the site.";
+      visibility: visible;
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: #000;
+      color: #fff;
+      font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: center;
+    }
+  </style>
+  <noscript>
+    <style>
+      html:not(.umd-gate-unlocked) body::before {
+        content: "This prototype requires JavaScript to sign in.";
+        visibility: visible;
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        background: #000;
+        color: #fff;
+        font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+        font-size: 16px;
+        text-align: center;
+      }
+    </style>
+  </noscript>
+  <script>
+    window.UMD_GATE = {
+      title: 'This prototype is private',
+      message: 'Sign in with the credentials shared with you to view this preview.',
+      note: 'Trouble signing in? Contact the project team.',
+
+      /* 0 = this browser tab only. Otherwise the sign-in carries across tabs
+         and pages for this many hours, so a reviewer opening links in new
+         tabs is not asked again. */
+      rememberHours: 12,
+
+      /* PBKDF2 rounds. Must match what tools/gate.py used to make the hashes
+         below — change it and every account stops verifying. */
+      iterations: 310000,
+
+      /* GATE:USERS:START — written by page-builder/tools/gate.py; do not hand-edit */
+      users: []
+      /* GATE:USERS:END */
+    };
+  </script>
+  <script src="../page-builder/scripts/gate.js"
+          onerror="document.documentElement.classList.add('umd-gate-error')" defer></script>
+  <!-- SHARED:gate:END -->
 </head>
 <body>
 
+  <!-- ========================================
+       1. GLOBAL UNIVERSITY HEADER (red utility nav)
+  ======================================== -->
   <umd-element-navigation-utility data-alert-off="true" role="navigation" aria-label="Utility navigation"></umd-element-navigation-utility>
 
-  <umd-element-utility-header></umd-element-utility-header>
-
+  <!-- ========================================
+       2. SITE HEADER — logo only, no nav
+  ======================================== -->
   <umd-element-navigation-header sticky class="umd-layout-space-horizontal-full">
-    <a slot="logo" href="https://cmns.umd.edu/">
-      <img src="../images/projects/cmns-undergraduate/UMD_CMNS_Left_Color_1.png" alt="College of Computer, Mathematical, and Natural Sciences"
-        onerror="this.onerror=null;this.src='../page-builder/images/logos/primary-logo-dark.svg';" />
+    <a slot="logo" href="https://umd.edu">
+      <img src="../page-builder/images/logos/primary-logo-dark.svg" alt="University of Maryland" />
     </a>
-    <nav slot="main-navigation">
-      <umd-element-nav-item>
-        <a slot="primary-link" href="https://cmns.umd.edu/about">About</a>
-      <div slot="dropdown-links">
-        <a href="https://cmns.umd.edu/about/dean">Meet the Dean</a>
-        <a href="https://cmns.umd.edu/about/administration">College Administration</a>
-        <a href="https://cmns.umd.edu/about/strategic-plan">Strategic Plan</a>
-        <a href="https://cmns.umd.edu/about/belonging-community">Belonging &amp; Community</a>
-        <a href="https://cmns.umd.edu/about/alumni">Alumni</a>
-        <a href="https://cmns.umd.edu/about/giving">Giving</a>
-      </div>
-    </umd-element-nav-item>
-      <umd-element-nav-item>
-        <a slot="primary-link" href="https://cmns.umd.edu/undergraduate">Undergraduate</a>
-      <div slot="dropdown-links">
-        <a href="https://cmns.umd.edu/undergraduate/future-students">Future Students</a>
-        <a href="https://cmns.umd.edu/undergraduate/future-students/majors-minors">Majors &amp; Minors</a>
-        <a href="https://cmns.umd.edu/undergraduate/future-students/admissions">Admissions</a>
-        <a href="https://cmns.umd.edu/undergraduate/future-students/visit">Plan a Visit</a>
-        <a href="https://cmns.umd.edu/undergraduate/future-students/recruitment-ambassadors">Recruitment Ambassadors</a>
-        <a href="https://cmns.umd.edu/undergraduate/current-students">Current Students</a>
-        <a href="https://cmns.umd.edu/undergraduate/current-students/scholarships">Scholarships</a>
-      </div>
-    </umd-element-nav-item>
-      <umd-element-nav-item>
-        <a slot="primary-link" href="https://cmns.umd.edu/graduate">Graduate</a>
-      <div slot="dropdown-links">
-        <a href="https://cmns.umd.edu/graduate/degree-programs">Degree Programs</a>
-        <a href="https://cmns.umd.edu/graduate/science-academy">Science Academy</a>
-        <a href="https://cmns.umd.edu/graduate/admissions">Admissions</a>
-        <a href="https://cmns.umd.edu/graduate/fellowships">Graduate Fellowships</a>
-      </div>
-    </umd-element-nav-item>
-      <umd-element-nav-item>
-        <a slot="primary-link" href="https://cmns.umd.edu/departments">Departments</a>
-      </umd-element-nav-item>
-      <umd-element-nav-item>
-        <a slot="primary-link" href="https://cmns.umd.edu/research">Research</a>
-      <div slot="dropdown-links">
-        <a href="https://cmns.umd.edu/research/institutes-centers">Research Institutes &amp; Centers</a>
-        <a href="https://cmns.umd.edu/research/partnerships">Partnerships</a>
-        <a href="https://cmns.umd.edu/research/solving-grand-challenges">Solving Grand Challenges</a>
-        <a href="https://cmns.umd.edu/research/shared-facilities">Shared Research Facilities</a>
-      </div>
-    </umd-element-nav-item>
-      <umd-element-nav-item>
-        <a slot="primary-link" href="https://cmns.umd.edu/news-events">News &amp; Events</a>
-      <div slot="dropdown-links">
-        <a href="https://cmns.umd.edu/news-events/news">News</a>
-        <a href="https://cmns.umd.edu/news-events/events">Events</a>
-        <a href="https://cmns.umd.edu/news-events/odyssey">Odyssey Magazine</a>
-        <a href="https://cmns.umd.edu/news-events/newsletters">Newsletters</a>
-      </div>
-    </umd-element-nav-item>
-    </nav>
   </umd-element-navigation-header>
 
   <!-- ========================================
-       HERO — small background-overlay (non-homepage landing).
-       Page title only; subhead + CTAs handled by the section-intro below.
+       3. SEARCH PAGE CONTENT
   ======================================== -->
-  <section class="umd-layout-vertical-landing">
-    <umd-element-hero data-display="standard" data-layout-height="small" data-layout-text="center">
-      <h1 slot="headline">Undergraduate</h1>
-      <img slot="image" src="../images/projects/cmns-undergraduate/banner-ug-vr-class.jpg" alt="Several undergraduate students, two wearing virtual reality headsets, working in a classroom" />
-    </umd-element-hero>
-  </section>
+  <main>
 
-  <!-- ========================================
-       SECTION INTRO — long subhead + 5 CTAs (was hero text/actions in v1).
-  ======================================== -->
-  <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-larger">
-      <umd-element-section-intro>
-        <div slot="text"><p>We provide our undergraduates with a rigorous, high-quality education and exceptional research opportunities in a challenging, supportive environment.</p></div>
-        <div slot="actions">
-          <umd-element-call-to-action data-display="secondary">
-            <a href="https://cmns.umd.edu/undergraduate/future-students/majors-minors">Explore Our Majors &amp; Minors</a>
-          </umd-element-call-to-action>
-          <umd-element-call-to-action data-display="secondary">
-            <a href="https://cmns.umd.edu/undergraduate/future-students/visit">Plan a Visit - Virtual or In Person</a>
-          </umd-element-call-to-action>
-          <umd-element-call-to-action data-display="secondary">
-            <a href="https://go.umd.edu/CMNSprospective">Fill Out Our Interest Form</a>
-          </umd-element-call-to-action>
-          <umd-element-call-to-action data-display="secondary">
-            <a href="https://cmns.umd.edu/sites/default/files/undergrad/UMD-CMNS-Freshmen-Fall2025.pdf">See Our Freshmen Fact Sheet</a>
-          </umd-element-call-to-action>
-        </div>
-      </umd-element-section-intro>
-    </div>
-  </section>
-
-  <!-- ========================================
-       PROMOTIONAL IMAGE CAROUSEL — matches the source's gavias_sliderlayer
-       (2 image-only slides: "Become a Science Terp" + a campus map).
-  ======================================== -->
-  <section class="umd-layout-vertical-landing">
-    <umd-element-carousel-image-wide title="Undergraduate highlights">
-      <div slot="slides">
-        <figure>
-          <img src="../images/projects/cmns-undergraduate/hero-become-a-science-terp-3-sckrqx.jpg" alt="Become a Science Terp" />
-        </figure>
-        <figure>
-          <img src="../images/projects/cmns-undergraduate/hero-ug-map-8gbkyz.jpg" alt="Map of College of Computer, Mathematical, and Natural Sciences departments" />
-        </figure>
+    <!-- BLACK HERO: heading only -->
+    <section class="search-hero">
+      <div class="umd-layout-space-horizontal-normal">
+        <h1 class="umd-campaign-medium search-page-h1">Search</h1>
       </div>
-    </umd-element-carousel-image-wide>
-  </section>
+    </section>
 
-  <!-- ========================================
-       STATS — light theme (non-homepage landing).
-       6 stats in two rows of three (RULES.md §9).
-  ======================================== -->
-  <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-larger">
-      <div class="umd-watermark"><span>Fall 2025</span></div>
-      <div class="umd-layout-vertical-landing-child">
-        <umd-element-section-intro-wide>
-          <h2 slot="headline">New First-Time Students</h2>
-          <umd-element-call-to-action data-display="secondary" slot="actions">
-            <a href="https://cmns.umd.edu/sites/default/files/undergrad/UMD-CMNS-Freshmen-Fall2025.pdf">See our freshmen fact sheet</a>
-          </umd-element-call-to-action>
-        </umd-element-section-intro-wide>
-      </div>
-
-      <div class="umd-layout-grid-gap-three" style="row-gap:48px;">
-        <umd-element-stat data-visual-size="large" data-decoration-line>
-          <span slot="stat">1,496</span>
-          <div slot="text"><p>New Students</p></div>
-        </umd-element-stat>
-        <umd-element-stat data-visual-size="large" data-decoration-line>
-          <span slot="stat">33</span>
-          <div slot="text"><p>States</p></div>
-        </umd-element-stat>
-        <umd-element-stat data-visual-size="large" data-decoration-line>
-          <span slot="stat">9</span>
-          <div slot="text"><p>Countries</p></div>
-        </umd-element-stat>
-        <umd-element-stat data-visual-size="large" data-decoration-line>
-          <span slot="stat">12%</span>
-          <div slot="text"><p>First-Generation College Students</p></div>
-        </umd-element-stat>
-        <umd-element-stat data-visual-size="large" data-decoration-line>
-          <span slot="stat">14%</span>
-          <div slot="text"><p>From Groups Underrepresented in the Sciences</p></div>
-        </umd-element-stat>
-        <umd-element-stat data-visual-size="large" data-decoration-line>
-          <span slot="stat">69%</span>
-          <div slot="text"><p>Participating in Living &amp; Learning and Special Programs</p></div>
-        </umd-element-stat>
+    <!-- FORM: straddles the black/white boundary -->
+    <div class="search-form-overlap">
+      <div class="umd-layout-space-horizontal-normal">
+        <form class="umd-layout-background-highlight-light search-input-bar"
+              role="search" action="#" onsubmit="return false">
+          <label for="search-q" class="search-input-field">
+            <input id="search-q" class="umd-sans-larger" type="text" name="q" autocomplete="off"
+                   value="is UMD test optional?"
+                   aria-label="Ask a question of the University of Maryland" />
+          </label>
+          <button type="submit" class="search-submit" aria-label="Submit search">
+            <img src="../page-builder/images/icons/ai-search-icon.svg" alt="" />
+          </button>
+        </form>
       </div>
     </div>
-  </section>
 
-  <!-- ========================================
-       RECRUITMENT AMBASSADORS — thumbnail carousel (matches source slider).
-       Each slide carries data-thumbnail; content is a one-up bio block.
-  ======================================== -->
-  <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-larger">
-      <div class="umd-layout-vertical-landing-child">
-        <umd-element-section-intro>
-          <h2 slot="headline">Meet Our Recruitment Ambassadors</h2>
-          <p slot="text">Want to get in touch with a recruitment ambassador? Email <a href="mailto:egarosi@umd.edu">egarosi@umd.edu</a></p>
-          <umd-element-call-to-action data-display="secondary" slot="actions">
-            <a href="https://cmns.umd.edu/undergraduate/future-students/recruitment-ambassadors">See all of our recruitment ambassadors</a>
-          </umd-element-call-to-action>
-        </umd-element-section-intro>
-      </div>
+    <!-- WHITE CONTENT -->
+    <section class="search-content umd-layout-vertical-landing">
+      <div class="umd-layout-space-horizontal-small">
 
-      <umd-element-carousel-thumbnail>
-        <div slot="blocks">
-          <umd-element-card data-visual-transparent="true" data-visual-image-aligned="true" data-thumbnail="../images/projects/cmns-undergraduate/amb-lilian-wang.jpg">
-            <img slot="image" src="../images/projects/cmns-undergraduate/amb-lilian-wang.jpg" alt="Profile photo of Lilian Wang" />
-            <p slot="headline"><a href="https://cmns.umd.edu/people/lilian-wang">Lilian Wang</a></p>
-            <div slot="text"><p>Biological Sciences and Psychology Dual Degree<br>Boyds, MD<br>Integrated Life Sciences (ILS)</p></div>
-          </umd-element-card>
-          <umd-element-card data-visual-transparent="true" data-visual-image-aligned="true" data-thumbnail="../images/projects/cmns-undergraduate/amb-ava-allen.jpg">
-            <img slot="image" src="../images/projects/cmns-undergraduate/amb-ava-allen.jpg" alt="Ava Allen" />
-            <p slot="headline"><a href="https://cmns.umd.edu/people/ava-allen">Ava Allen</a></p>
-            <div slot="text"><p>Physics and Astronomy Double Major<br>Annapolis, MD<br>University Honors Program</p></div>
-          </umd-element-card>
-          <umd-element-card data-visual-transparent="true" data-visual-image-aligned="true" data-thumbnail="../images/projects/cmns-undergraduate/amb-laurel-sun.jpg">
-            <img slot="image" src="../images/projects/cmns-undergraduate/amb-laurel-sun.jpg" alt="Photo of Laurel Sun" />
-            <p slot="headline"><a href="https://cmns.umd.edu/people/laurel-sun">Laurel Sun</a></p>
-            <div slot="text"><p>Computer Science Major<br>Mathematics Minor<br>Saratoga, CA<br>College Park Scholars</p></div>
-          </umd-element-card>
-          <umd-element-card data-visual-transparent="true" data-visual-image-aligned="true" data-thumbnail="../images/projects/cmns-undergraduate/amb-sai-naraharisetti.jpg">
-            <img slot="image" src="../images/projects/cmns-undergraduate/amb-sai-naraharisetti.jpg" alt="photo of sai Naraharisetti" />
-            <p slot="headline"><a href="https://cmns.umd.edu/people/sai-naraharisetti">Sai Naraharisetti</a></p>
-            <div slot="text"><p>Computer Science Major<br>Statistics Minor<br>Ellicott City, MD<br>College Park Scholars</p></div>
-          </umd-element-card>
-          <umd-element-card data-visual-transparent="true" data-visual-image-aligned="true" data-thumbnail="../images/projects/cmns-undergraduate/amb-aarushi-gupta.jpg">
-            <img slot="image" src="../images/projects/cmns-undergraduate/amb-aarushi-gupta.jpg" alt="Profile photo of Aarushi Gupta" />
-            <p slot="headline"><a href="https://cmns.umd.edu/people/aarushi-gupta">Aarushi Gupta</a></p>
-            <div slot="text"><p>Biological Sciences Major<br>Humanities, Health, and Medicine (HHM) and Disabilities Studies minors<br>Clarksburg, MD<br>Integrated Life Sciences (ILS)</p></div>
-          </umd-element-card>
-          <umd-element-card data-visual-transparent="true" data-visual-image-aligned="true" data-thumbnail="../images/projects/cmns-undergraduate/amb-ariel-abraham.jpg">
-            <img slot="image" src="../images/projects/cmns-undergraduate/amb-ariel-abraham.jpg" alt="Picture of Ariel Abraham" />
-            <p slot="headline"><a href="https://cmns.umd.edu/people/ariel-abraham">Ariel Abraham</a></p>
-            <div slot="text"><p>Biological Sciences<br>Cell Biology &amp; Genetics track<br>Data Science Minor</p></div>
-          </umd-element-card>
-          <umd-element-card data-visual-transparent="true" data-visual-image-aligned="true" data-thumbnail="../images/projects/cmns-undergraduate/amb-srinidhi-arumugam.jpg">
-            <img slot="image" src="../images/projects/cmns-undergraduate/amb-srinidhi-arumugam.jpg" alt="Profile photo of Srinidhi Arumugam" />
-            <p slot="headline"><a href="https://cmns.umd.edu/people/srinidhi-arumugam">Srinidhi Arumugam</a></p>
-            <div slot="text"><p>Computer Science and Biological Sciences double major<br>Ellicott City, MD<br>Integrated Life Sciences Honors College</p></div>
-          </umd-element-card>
-          <umd-element-card data-visual-transparent="true" data-visual-image-aligned="true" data-thumbnail="../images/projects/cmns-undergraduate/amb-kian-mercado.jpg">
-            <img slot="image" src="../images/projects/cmns-undergraduate/amb-kian-mercado.jpg" alt="Profile photo of Kian Mercado" />
-            <p slot="headline"><a href="https://cmns.umd.edu/people/kian-mercado">Kian Mercado</a></p>
-            <div slot="text"><p>Dual Degree in Biochemistry and Biological Sciences<br>General Business Minor<br>Rockville, MD<br>Integrated Life Sciences (ILS)<br>Graduating early</p></div>
-          </umd-element-card>
-        </div>
-      </umd-element-carousel-thumbnail>
-    </div>
-  </section>
-
-  <!-- ========================================
-       SIDE-NAV ACCORDIONS — preserve the source's left-rail sub-navigation
-       as two collapsed sections near the bottom of the page.
-  ======================================== -->
-  <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-small">
-      <div class="umd-layout-grid-gap-min">
-        <umd-element-accordion-item>
-          <p slot="headline">Future Students</p>
-          <div slot="text">
-            <ul style="list-style:none; padding:0; margin:0;">
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/future-students" style="color:#000; text-decoration:none;">Future Students</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/future-students/majors-minors" style="color:#000; text-decoration:none;">Majors &amp; Minors</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/future-students/admissions" style="color:#000; text-decoration:none;">Admissions</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/future-students/visit" style="color:#000; text-decoration:none;">Plan a Visit</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/future-students/recruitment-ambassadors" style="color:#000; text-decoration:none;">Recruitment Ambassadors</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/future-students/living-learning-special-programs" style="color:#000; text-decoration:none;">Living &amp; Learning Programs</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/future-students/living-learning-special-programs/biofire" style="color:#000; text-decoration:none;">BioFIRE</a></li>
-              <li style="padding:8px 0;"><a href="https://cmns.umd.edu/undergraduate/future-students/living-learning-special-programs/biofire/curriculum" style="color:#000; text-decoration:none;">BioFIRE Curriculum</a></li>
-            </ul>
+        <div class="ai-summary-block">
+          <div class="ai-summary-label umd-sans-smaller">
+            <img src="../page-builder/images/icons/ai-star.svg" alt="" />
+            <span>AI Summary</span>
           </div>
-        </umd-element-accordion-item>
-
-        <umd-element-accordion-item>
-          <p slot="headline">Current Students</p>
-          <div slot="text">
-            <ul style="list-style:none; padding:0; margin:0;">
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/current-students" style="color:#000; text-decoration:none;">Current Students</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/current-students/advising-academic-planning" style="color:#000; text-decoration:none;">Advising and Academic Planning</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/current-students/career-ready" style="color:#000; text-decoration:none;">Career Ready</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/current-students/student-organizations" style="color:#000; text-decoration:none;">Student Organizations</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/current-students/academic-support-tutoring" style="color:#000; text-decoration:none;">Academic Support &amp; Tutoring</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/current-students/scholarships" style="color:#000; text-decoration:none;">Scholarships</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/current-students/graduation-information" style="color:#000; text-decoration:none;">Graduation Information</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/current-students/teaching-opportunities" style="color:#000; text-decoration:none;">Undergraduate Teaching Opportunities</a></li>
-              <li style="padding:8px 0; border-bottom:1px solid #e6e6e6;"><a href="https://cmns.umd.edu/undergraduate/current-students/undergrad-news" style="color:#000; text-decoration:none;">Undergraduate Listserv</a></li>
-              <li style="padding:8px 0;"><a href="https://cmns.umd.edu/undergraduate/current-students/program-staff" style="color:#000; text-decoration:none;">Undergraduate Program Staff</a></li>
+          <div id="ai-summary-text" class="ai-summary-text">
+            <p>Yes, the University <a href="https://admissions.umd.edu/apply/freshman-application-faqs" target="_blank" rel="noopener noreferrer" title="Freshman Application FAQs" class="citation-link">of Maryland (UMD) is currently test-optional.</a></p>
+            <p>Here's what that means for applicants:</p>
+            <ul>
+              <li><strong>Policy Extension:</strong> UMD has extended its test-optional policy through the Spring and Fall 2027 application cycles. This means that students applying for admission between now and Fall 2027 are not required to submit standardized test scores (SAT/ACT).</li>
+              <li><strong>Applicant Choice:</strong> Students have the option to decide whether or not to include SAT/ACT scores with their application.</li>
             </ul>
+            <div id="ai-summary-more" class="ai-summary-more">
+              <ul>
+                <li><strong>Indication on Application:</strong> You will be able to indicate your test-optional status directly on your application.</li>
+                <li><strong>Final Decision:</strong> Once you submit your application, your response to the test-optional question is final and cannot be changed. If you submit scores but indicate you want your application evaluated without them, the Admission Committee will not consider those scores.</li>
+                <li><strong>Holistic Review:</strong> For students who choose not to submit test scores, UMD's Admission Committee uses a holistic, full-file review process. This review considers various factors, including:
+                  <ul>
+                    <li>Grades earned in academic coursework</li>
+                    <li>Trends in your grades</li>
+                    <li>Performance in honors, International Baccalaureate, and Advanced Placement (A/AS level) courses</li>
+                    <li>Letters of recommendation</li>
+                    <li>Your essay</li>
+                    <li>Extracurricular activities and other achievements</li>
+                  </ul>
+                </li>
+                <li><strong>No Disadvantage:</strong> A decision not to submit SAT or ACT scores will <a href="https://admissions.umd.edu/apply/transfer-application-faqs" target="_blank" rel="noopener noreferrer" title="Transfer Application FAQ" class="citation-link">not harm a student's admission chances.</a></li>
+                <li><strong>Impact on Other Programs:</strong> The test-optional review extends to:
+                  <ul>
+                    <li>Merit scholarships</li>
+                    <li>Living-learning and other special programs</li>
+                    <li>Limited Enrollment Programs (LEPs)</li>
+                  </ul>
+                </li>
+                <li><strong>Superscoring:</strong> If you choose to submit scores, UMD superscores both the SAT and ACT, meaning they use the highest subscores from each test in their review.</li>
+                <li><strong>Writing Portion and Subject Tests:</strong> UMD does not require scores from the writing sections of the SAT or ACT, nor do they require subject tests. Even if sent, these scores are not among the 24 factors reviewed for admission.</li>
+                <li><strong>English Language Proficiency:</strong> Standardized tests for English language proficiency (such as Duolingo English Test, IELTS, and TOEFL) are still required for non-native English speakers.</li>
+              </ul>
+              <p><strong>For Transfer Students:</strong>
+              Traditionally, transfer students with fewer than 30 semester or 45 quarter hours at the time of application would need to submit SAT/ACT scores. However, UMD's current test-optional policy applies to them as well, allowing them to choose whether or not <a href="https://admissions.umd.edu/apply/freshman-applicants" target="_blank" rel="noopener noreferrer" title="Freshman Applicants" class="citation-link">to have their test scores considered.</a></p>
+              <p><strong>Future of the Policy:</strong>
+              UMD initially implemented its test-optional policy due to the limitations of testing during the COVID-19 pandemic. The university is currently assessing the impact of this policy on students and the admission process to inform its standardized test score requirement for application cycles beyond Fall 2027.</p>
+              <p><strong>Clarifying Follow-up Questions:</strong>
+              To provide the most relevant information, could you please clarify if you are applying as a:</p>
+              <ul>
+                <li>Freshman applicant or a transfer applicant?</li>
+                <li>If a transfer applicant, how many college credits will you have completed by the time of application?</li>
+              </ul>
+              <p>For the most current and complete information, please refer <a href="https://today.umd.edu/briefs/umd-extends-test-optional-admissions-through-fall-2025" target="_blank" rel="noopener noreferrer" title="UMD Extends Test-optional Admissions Through Fall 2025" class="citation-link">to the Office of Undergraduate Admissions.</a></p>
+            </div>
           </div>
-        </umd-element-accordion-item>
+          <button type="button" id="ai-summary-toggle" class="umd-action-outline-block ai-summary-show-more">
+            Show more
+          </button>
+        </div>
+
+        <div class="featured-results-block">
+          <p class="featured-results-label">Featured Results</p>
+          <div class="featured-results-list">
+
+            <umd-element-card data-display="list">
+              <a slot="image" href="https://admissions.umd.edu/apply/freshman-application-faqs">
+                <img src="../page-builder/images/large/campus/hornbake-plaza.jpg"
+                     alt="Hornbake Plaza on the University of Maryland campus" />
+              </a>
+              <p slot="eyebrow">UMD Admissions</p>
+              <h3 slot="headline">
+                <a href="https://admissions.umd.edu/apply/freshman-application-faqs">Freshman Application FAQs</a>
+              </h3>
+              <div slot="text">
+                <p>Find answers to common questions about applying as a first-year student to the University of Maryland, including test-optional policies.</p>
+              </div>
+              <p slot="date" class="result-url">admissions.umd.edu/apply/freshman-application-faqs</p>
+            </umd-element-card>
+
+            <umd-element-card data-display="list">
+              <a slot="image" href="https://admissions.umd.edu/discover/class-profile">
+                <img src="../page-builder/images/large/campus/Testudo_Students_03042022_SC_9823.webp"
+                     alt="UMD students on campus" />
+              </a>
+              <p slot="eyebrow">UMD Admissions</p>
+              <h3 slot="headline">
+                <a href="https://admissions.umd.edu/discover/class-profile">First-Year Class Profile</a>
+              </h3>
+              <div slot="text">
+                <p>See the academic credentials, geographic mix, and other characteristics of the most recently admitted first-year class at Maryland.</p>
+              </div>
+              <p slot="date" class="result-url">admissions.umd.edu/discover/class-profile</p>
+            </umd-element-card>
+
+            <umd-element-card data-display="list">
+              <a slot="image" href="https://www.umd.edu/admissions">
+                <img src="../page-builder/images/large/campus/thurgood-marshall-hall-spring.webp"
+                     alt="Thurgood Marshall Hall in spring" />
+              </a>
+              <p slot="eyebrow">University of Maryland</p>
+              <h3 slot="headline">
+                <a href="https://www.umd.edu/admissions">Admissions</a>
+              </h3>
+              <div slot="text">
+                <p>Explore admissions pathways for first-year, transfer, graduate, and international students applying to the University of Maryland.</p>
+              </div>
+              <p slot="date" class="result-url">umd.edu/admissions</p>
+            </umd-element-card>
+
+          </div>
+        </div>
+
+        <!--
+        <div class="other-results-block">
+          [More Results cards — commented out, replaced by expand-search-block below]
+        </div>
+        -->
+
+        <div class="expand-search-block">
+          <p class="featured-results-label expand-search-label">Expand your search</p>
+          <div class="umd-pill-list">
+            <a href="#">Honors College Admissions</a>
+            <a href="#">Academic Scholarships</a>
+            <a href="#">Academics</a>
+            <a href="#">Application Deadlines</a>
+            <a href="#">Transfer Student Admissions</a>
+          </div>
+        </div>
+
       </div>
-    </div>
-  </section>
+    </section><!-- .search-content -->
+  </main>
 
   <!-- ========================================
-       QUICK LINKS — 4 image-overlay cards using midpage banners.
-       type="image" required so slot=image renders (RULES.md §6).
+       4. FOOTER — mega, no visual, default DS links
   ======================================== -->
-  <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-larger">
-      <div class="umd-layout-grid-columns-four umd-layout-grid-child-fill-height">
-        <umd-element-card-overlay type="image" data-theme="dark">
-          <img slot="image" src="../images/projects/cmns-undergraduate/midpage-sandbox.jpg" alt="" />
-          <h3 slot="headline"><a href="https://cmns.umd.edu/taxonomy/term/student-stories">Student Stories</a></h3>
-          <a slot="cta-icon" href="https://cmns.umd.edu/taxonomy/term/student-stories">Read</a>
-        </umd-element-card-overlay>
-        <umd-element-card-overlay type="image" data-theme="dark">
-          <img slot="image" src="../images/projects/cmns-undergraduate/midpage-ug-research.jpg" alt="" />
-          <h3 slot="headline"><a href="https://cmns.umd.edu/undergraduate/current-students/career-ready/research-internships">Research Opportunities</a></h3>
-          <a slot="cta-icon" href="https://cmns.umd.edu/undergraduate/current-students/career-ready/research-internships">Explore</a>
-        </umd-element-card-overlay>
-        <umd-element-card-overlay type="image" data-theme="dark">
-          <img slot="image" src="../images/projects/cmns-undergraduate/midpage-ug-research-2.jpg" alt="" />
-          <h3 slot="headline"><a href="https://cmns.umd.edu/undergraduate/current-students/career-ready">Career Ready</a></h3>
-          <a slot="cta-icon" href="https://cmns.umd.edu/undergraduate/current-students/career-ready">Explore</a>
-        </umd-element-card-overlay>
-        <umd-element-card-overlay type="image" data-theme="dark">
-          <img slot="image" src="../images/projects/cmns-undergraduate/midpage-living-learning-3.jpg" alt="" />
-          <h3 slot="headline"><a href="https://cmns.umd.edu/undergraduate/future-students/living-learning-special-programs">Living &amp; Learning Programs</a></h3>
-          <a slot="cta-icon" href="https://cmns.umd.edu/undergraduate/future-students/living-learning-special-programs">Explore</a>
-        </umd-element-card-overlay>
-      </div>
-    </div>
-  </section>
-
-  <umd-element-footer data-display="visual">
-    <a slot="logo" href="https://cmns.umd.edu/">
-      <img src="../page-builder/images/logos/footer-logo.svg" alt="College of Computer, Mathematical, and Natural Sciences" />
+  <umd-element-footer>
+    <a slot="logo" href="https://umd.edu">
+      <img src="../page-builder/images/logos/footer-logo.svg" alt="University of Maryland" />
     </a>
-    <img slot="image" src="../page-builder/images/large/campus/footer-campus.jpg" alt="University of Maryland campus" />
   </umd-element-footer>
 
   <script>
     (function () {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var GRID_SELECTORS = [
-        '.umd-layout-grid-gap-two',
-        '.umd-layout-grid-gap-three',
-        '.umd-layout-grid-gap-stacked',
-        '.umd-layout-grid-columns-four',
-        '.umd-layout-grid-masonry',
-        '.umd-layout-grid-inline-tablet-rows',
-        '.umd-animation-grid',
-        '.umd-grid-animation'
-      ].map(function (sel) { return sel + ':not([data-animation="off"])'; });
-      var style = document.createElement('style');
-      style.textContent = [
-        '@keyframes fade-in-from-bottom {',
-        '  from { opacity: 0; transform: translateY(50px); }',
-        '  to   { opacity: 1; transform: translateY(0); }',
-        '}',
-        ':where(' + GRID_SELECTORS.join(',') + ') > * {',
-        '  opacity: 0;',
-        '  transform: translateY(50px);',
-        '}',
-        '.umd-animation-transition-fade-bottom {',
-        '  animation: fade-in-from-bottom 1s forwards;',
-        '}'
-      ].join('\n');
-      document.head.appendChild(style);
-      function tagRowOffsets(grid) {
-        var children = Array.prototype.slice.call(grid.children);
-        var prevTop = null;
-        children.forEach(function (child) {
-          var top = child.getBoundingClientRect().top;
-          if (prevTop !== null && Math.abs(top - prevTop) < 1) {
-            child.dataset.animation = 'offset';
-          } else {
-            delete child.dataset.animation;
-          }
-          prevTop = top;
-        });
-      }
-      function init() {
-        var grids = document.querySelectorAll(GRID_SELECTORS.join(','));
-        if (!grids.length) return;
-        grids.forEach(tagRowOffsets);
-        window.addEventListener('resize', function () { grids.forEach(tagRowOffsets); });
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (!entry.isIntersecting) return;
-            var el = entry.target;
-            el.style.animationDelay = el.dataset.animation === 'offset' ? '350ms' : '0ms';
-            el.classList.add('umd-animation-transition-fade-bottom');
-            observer.unobserve(el);
-          });
-        }, { threshold: 0.35 });
-        grids.forEach(function (grid) {
-          Array.prototype.forEach.call(grid.children, function (child) {
-            observer.observe(child);
-          });
-        });
-      }
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else {
-        init();
-      }
+      var btn = document.getElementById('ai-summary-toggle');
+      var more = document.getElementById('ai-summary-more');
+      if (!btn || !more) return;
+      btn.addEventListener('click', function () {
+        var visible = more.classList.toggle('visible');
+        btn.textContent = visible ? 'Show less' : 'Show more';
+      });
     })();
   </script>
-
 </body>
 </html>

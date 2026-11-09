@@ -3,11 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home — School of Public Health | University of Maryland</title>
+  <!-- SHARED:head-meta:START — generated from shared/head-meta.html; do not edit here -->
+  <!-- ============================================================
+       SHARED CHROME — site-wide <head> meta
+       Inlined into every page by page-builder/tools/build-chrome.py.
+       Edit here, not in pages/*.html.
+
+       SITE-WIDE meta only. A page's own <title> and
+       <meta name="description"> differ per page and stay in the page,
+       below this region.
+
+       The noindex pair below is the scaffold default: a design project
+       is a prototype or client review, and should not surface in
+       search. DELETE IT before the site goes live for real.
+
+       A robots.txt is not an alternative — it is only fetched from a
+       HOST root, and a GitHub Pages project site is served from
+       /<repo>/, so this meta is the only mechanism that applies there.
+       The googlebot line is a belt-and-braces duplicate of the robots
+       line.
+
+       Delete this file if the project has none; the inliner skips a
+       region whose source file is absent.
+  ============================================================ -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <!-- SHARED:head-meta:END -->
+  <title>Home — College of Computer, Mathematical, and Natural Sciences | University of Maryland</title>
 
   <!-- ============================================================
        UMD Critical CSS — MUST precede cdn.js
-       SOURCE OF TRUTH: styles/critical.css
   ============================================================ -->
   <style>
     /* ============================================================
@@ -754,292 +779,582 @@
   </style>
 
   <script src="https://unpkg.com/@universityofmaryland/web-components-library@1.18.12/dist/cdn.js"></script>
+  <!-- SHARED:gate:START — generated from shared/gate.html; do not edit here -->
+  <!-- ============================================================
+       PROTOTYPE ACCESS GATE
+       Inlined into the <head> of every page by
+       page-builder/tools/build-chrome.py. Edit here, not in pages/*.html.
+
+       Keeps a GitHub Pages prototype blank for anyone without the shared
+       credentials, and — with the noindex meta chrome.py stamps into every
+       page — out of search results.
+
+       It is NOT access control. The whole check ships to the browser, so the
+       markup is retrievable with `curl` and the hash can be attacked offline.
+       Keep the project repo PRIVATE and put nothing behind it that would
+       matter if it leaked. See page-builder/scripts/gate.js for the full
+       reasoning.
+
+       DELETE THIS FILE on a project that should be public — the inliner skips
+       a region whose source file is absent, and the next build-chrome.py run
+       strips the block back out of every page.
+
+       ADD AN ACCOUNT — never type a password into this file by hand:
+
+           python3 page-builder/tools/gate.py --write shared/gate.html
+
+       That prompts for the username and password without echoing them, and
+       rewrites the block between the GATE:USERS markers below. The plaintext
+       password is never written to this repo.
+  ============================================================ -->
+  <style>
+    /* The lock is CSS, not JavaScript, and it is unconditional: the page is
+       hidden from the first paint and STAYS hidden if gate.js 404s, throws,
+       or scripting is off. gate.js adds .umd-gate-unlocked only after a
+       password verifies. Do not move this into a JS-added class — that
+       inverts it into fail-open. */
+    html:not(.umd-gate-unlocked) { overflow: hidden; }
+    html:not(.umd-gate-unlocked) body { visibility: hidden; }
+    html:not(.umd-gate-unlocked) body > .umd-gate { visibility: visible; }
+
+    .umd-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-y: auto;
+      background: #000;
+      font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+    }
+
+    .umd-gate__panel {
+      width: 100%;
+      max-width: 420px;
+      margin: auto;
+      padding: 40px 32px;
+      background: #1a1a1a;
+      border-top: 4px solid #e21833;
+      color: #fff;
+      text-align: left;
+    }
+
+    .umd-gate__eyebrow {
+      margin: 0 0 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #ffd200;
+    }
+
+    .umd-gate__title {
+      margin: 0 0 8px;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .umd-gate__message {
+      margin: 0 0 24px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #d1d1d1;
+    }
+
+    .umd-gate__label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #e6e6e6;
+    }
+
+    .umd-gate__input {
+      display: block;
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 16px;   /* below 16px, iOS Safari zooms the page on focus */
+      color: #000;
+      background: #fff;
+      border: 1px solid #757575;
+      border-radius: 0;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .umd-gate__input:focus-visible {
+      outline: 2px solid #ffd200;
+      outline-offset: 2px;
+    }
+
+    .umd-gate__submit {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #e21833;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .umd-gate__submit:hover { background: #c1152b; }
+    .umd-gate__submit:disabled { background: #757575; cursor: default; }
+    .umd-gate__submit:focus-visible { outline: 2px solid #ffd200; outline-offset: 2px; }
+
+    /* Always in the layout, so filling it in on a failed attempt does not
+       shove the button out from under the cursor. */
+    .umd-gate__error {
+      min-height: 20px;
+      margin: 0 0 8px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #ff9a9a;
+    }
+
+    .umd-gate__note {
+      margin: 16px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #a8a8a8;
+    }
+
+    /* gate.js never arrived — say so, rather than leaving a blank page that
+       looks like a broken deploy. Still locked: the rule above is untouched. */
+    html.umd-gate-error body::before {
+      content: "This prototype could not load its sign-in. Check that page-builder/scripts/gate.js is published alongside the site.";
+      visibility: visible;
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: #000;
+      color: #fff;
+      font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: center;
+    }
+  </style>
+  <noscript>
+    <style>
+      html:not(.umd-gate-unlocked) body::before {
+        content: "This prototype requires JavaScript to sign in.";
+        visibility: visible;
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        background: #000;
+        color: #fff;
+        font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+        font-size: 16px;
+        text-align: center;
+      }
+    </style>
+  </noscript>
+  <script>
+    window.UMD_GATE = {
+      title: 'This prototype is private',
+      message: 'Sign in with the credentials shared with you to view this preview.',
+      note: 'Trouble signing in? Contact the project team.',
+
+      /* 0 = this browser tab only. Otherwise the sign-in carries across tabs
+         and pages for this many hours, so a reviewer opening links in new
+         tabs is not asked again. */
+      rememberHours: 12,
+
+      /* PBKDF2 rounds. Must match what tools/gate.py used to make the hashes
+         below — change it and every account stops verifying. */
+      iterations: 310000,
+
+      /* GATE:USERS:START — written by page-builder/tools/gate.py; do not hand-edit */
+      users: []
+      /* GATE:USERS:END */
+    };
+  </script>
+  <script src="../page-builder/scripts/gate.js"
+          onerror="document.documentElement.classList.add('umd-gate-error')" defer></script>
+  <!-- SHARED:gate:END -->
 </head>
 <body>
 
-  <!-- 1. GLOBAL UNIVERSITY HEADER -->
+  <!-- ========================================
+       1. GLOBAL UNIVERSITY HEADER
+  ======================================== -->
   <umd-element-navigation-utility data-alert-off="true" role="navigation" aria-label="Utility navigation"></umd-element-navigation-utility>
+
   <umd-element-utility-header></umd-element-utility-header>
 
-  <!-- 2. SITE NAVIGATION HEADER -->
+  <!-- ========================================
+       2. SITE NAVIGATION HEADER
+  ======================================== -->
   <umd-element-navigation-header sticky class="umd-layout-space-horizontal-full">
-    <a slot="logo" href="https://sph.umd.edu">
-      <img src="../images/projects/sph/logo.svg" alt="University of Maryland School of Public Health" />
+    <a slot="logo" href="https://cmns.umd.edu">
+      <img src="../images/projects/cmns/UMD_CMNS_Left_Color_1.png" alt="College of Computer, Mathematical, and Natural Sciences" />
     </a>
     <nav slot="main-navigation">
+
       <umd-element-nav-item>
-        <a slot="primary-link" href="https://sph.umd.edu/academics">Academics</a>
+        <a slot="primary-link" href="/about">About</a>
         <div slot="dropdown-links">
-          <a href="https://sph.umd.edu/undergraduate-degrees">Undergraduate Degrees</a>
-          <a href="https://sph.umd.edu/academics/masters-degrees">Master's Degrees</a>
-          <a href="https://sph.umd.edu/academics/doctoral-degrees">Doctoral Degrees</a>
-          <a href="https://sph.umd.edu/academics/dual-degrees">Dual Degrees</a>
-          <a href="https://sph.umd.edu/academics/certificates">Certificates</a>
-          <a href="https://sph.umd.edu/academics/online-graduate-programs-public-health">Online Programs</a>
-          <a href="https://sph.umd.edu/academics/departments-units">Departments &amp; Units</a>
-          <a href="https://sph.umd.edu/academics/advising-resources">Advising &amp; Resources</a>
+          <a href="/about/dean">Meet the Dean</a>
+          <a href="/about/administration">College Administration</a>
+          <a href="/about/strategic-plan">Strategic Plan</a>
+          <a href="/about/belonging-community">Belonging &amp; Community</a>
+          <a href="/about/alumni">Alumni</a>
+          <a href="/about/giving">Giving</a>
+          <a href="/about/faculty-staff">Faculty &amp; Staff</a>
+          <a href="/about/board-of-visitors">Board of Visitors</a>
+          <a href="/about/circle-of-discovery">Circle of Discovery</a>
         </div>
       </umd-element-nav-item>
+
       <umd-element-nav-item>
-        <a slot="primary-link" href="https://sph.umd.edu/admissions">Admissions</a>
+        <a slot="primary-link" href="/undergraduate">Undergraduate</a>
         <div slot="dropdown-links">
-          <a href="https://sph.umd.edu/admissions/maryland-experience">Why UMD Public Health</a>
-          <a href="https://sph.umd.edu/admissions/future-undergraduate-students">Undergraduate Admissions</a>
-          <a href="https://sph.umd.edu/admissions/graduate-admissions">Graduate Admissions</a>
-          <a href="https://sph.umd.edu/admissions/non-degree-seeking-students">Non-Degree Seeking Students</a>
-          <a href="https://sph.umd.edu/admissions/tuition-and-aid">Tuition &amp; Aid</a>
-          <a href="https://sph.umd.edu/admissions/request-information">Request Information</a>
-          <a href="https://sph.umd.edu/admissions/visit-sph">Visit</a>
+          <a href="/undergraduate/future-students">Future Students</a>
+          <a href="/undergraduate/future-students/majors-minors">Majors &amp; Minors</a>
+          <a href="/undergraduate/future-students/admissions">Admissions</a>
+          <a href="/undergraduate/future-students/visit">Plan a Visit</a>
+          <a href="/undergraduate/current-students">Current Students</a>
+          <a href="/undergraduate/current-students/advising-academic-planning">Advising &amp; Academic Planning</a>
+          <a href="/undergraduate/current-students/career-ready">Career Ready</a>
+          <a href="/undergraduate/current-students/scholarships">Scholarships</a>
         </div>
       </umd-element-nav-item>
+
       <umd-element-nav-item>
-        <a slot="primary-link" href="https://sph.umd.edu/research-impact">Research &amp; Impact</a>
+        <a slot="primary-link" href="/graduate">Graduate</a>
         <div slot="dropdown-links">
-          <a href="https://sph.umd.edu/research-impact/research-centers">Research Centers</a>
-          <a href="https://sph.umd.edu/research-impact/laboratories-projects-and-programs">Laboratories, Projects and Programs</a>
-          <a href="https://sph.umd.edu/research-impact/policy-reports">Policy Reports</a>
-          <a href="https://sph.umd.edu/research-impact/ai-public-health">AI for Public Health</a>
-          <a href="https://sph.umd.edu/research-impact/public-health-research-day-2026">Public Health Research Day</a>
+          <a href="/graduate/degree-programs">Degree Programs</a>
+          <a href="/graduate/science-academy">Science Academy</a>
+          <a href="/graduate/science-academy/machine-learning">Applied Machine Learning</a>
+          <a href="/graduate/science-academy/artificial-intelligence">Artificial Intelligence</a>
+          <a href="/graduate/science-academy/quantum-computing">Quantum Computing</a>
+          <a href="/graduate/admissions">Admissions</a>
+          <a href="/graduate/fellowships">Graduate Fellowships</a>
         </div>
       </umd-element-nav-item>
+
       <umd-element-nav-item>
-        <a slot="primary-link" href="https://sph.umd.edu/people">People</a>
+        <a slot="primary-link" href="/research">Research</a>
         <div slot="dropdown-links">
-          <a href="https://sph.umd.edu/people/faculty-staff">Faculty &amp; Staff</a>
-          <a href="https://sph.umd.edu/people/alumni-community">Alumni Community</a>
+          <a href="/research/institutes-centers">Institutes &amp; Centers</a>
+          <a href="/research/solving-grand-challenges">Grand Challenges</a>
+          <a href="/research/solving-grand-challenges/climate-change">Climate Change</a>
+          <a href="/research/solving-grand-challenges/human-disease">Human Disease</a>
+          <a href="/research/solving-grand-challenges/artificial-intelligence">Artificial Intelligence</a>
+          <a href="/research/solving-grand-challenges/quantum-computing">Quantum Computing</a>
+          <a href="/research/solving-grand-challenges/space-exploration">Space Exploration</a>
+          <a href="/research/shared-facilities">Shared Research Facilities</a>
+          <a href="https://research.umd.edu/innovation">Innovation</a>
         </div>
       </umd-element-nav-item>
+
       <umd-element-nav-item>
-        <a slot="primary-link" href="https://sph.umd.edu/student-opportunities">Student Opportunities</a>
+        <a slot="primary-link" href="/news-events">News &amp; Events</a>
         <div slot="dropdown-links">
-          <a href="https://sph.umd.edu/student-opportunities/career-exploration">Career Exploration</a>
-          <a href="https://sph.umd.edu/student-opportunities/mentorship">Mentorship</a>
-          <a href="https://sph.umd.edu/student-opportunities/professional-development">Professional Development</a>
-          <a href="https://sph.umd.edu/student-opportunities/internships">Internships</a>
-          <a href="https://sph.umd.edu/student-opportunities/student-research-opportunities">Student Research Opportunities</a>
-          <a href="https://sph.umd.edu/student-opportunities/student-organizations-honor-societies-and-honor-programs">Student Organizations &amp; Honor Societies</a>
-          <a href="https://sph.umd.edu/student-opportunities/peace-corps-prep-program">Peace Corps Prep</a>
+          <a href="/news-events/news">News</a>
+          <a href="/news-events/events">Events</a>
+          <a href="/news-events/events/science-on-tap">Science on Tap</a>
+          <a href="/news-events/events/summer-camps">Summer Camps</a>
+          <a href="/news-events/odyssey">Odyssey Magazine</a>
+          <a href="/news-events/newsletters">Newsletters</a>
         </div>
       </umd-element-nav-item>
+
     </nav>
-    <div slot="utility-navigation">
-      <a href="https://sph.umd.edu/about">About</a>
-      <a href="https://sph.umd.edu/news">News</a>
-      <a href="https://sph.umd.edu/events">Events</a>
-      <a href="https://sph.umd.edu/apply-school-public-health">Apply</a>
-      <a href="https://sph.umd.edu/invest-public-health">Give</a>
-    </div>
   </umd-element-navigation-header>
 
   <!-- ========================================
-       PAGE CONTENT
+       3. HERO — Standard/background, dark theme
+       No data-display: image fills behind text.
   ======================================== -->
-
-  <!-- HERO — dark overlay, no eyebrow, single CTA from source page -->
-  <section style="background:#000;">
-    <umd-element-hero data-display="overlay" data-theme="dark" data-animation>
-      <img slot="image" src="../images/projects/sph/a_positive_person__3830_x_1010_px___2_.png" alt="Woman in the rain holding a giant leaf above her head while smiling" />
-      <h1 slot="headline">Moving Forward for the Health of All</h1>
+  <section class="umd-layout-vertical-landing">
+    <umd-element-hero data-theme="dark">
+      <img slot="image" src="../images/projects/cmns/We-Are-CMNS-YT-Thumbnail-final.jpg" alt="We Are CMNS — College of Computer, Mathematical, and Natural Sciences" />
       <div slot="actions">
-        <umd-element-call-to-action data-display="primary" data-theme="dark">
-          <a href="https://sph.umd.edu/give">Visit Donation Page</a>
+        <umd-element-call-to-action data-display="primary">
+          <a href="https://youtu.be/qjNm6HemnoM">Watch Video</a>
         </umd-element-call-to-action>
       </div>
     </umd-element-hero>
   </section>
 
-  <!-- PROGRAMS & DEGREES — dark section with watermark and image overlay cards -->
-  <section class="umd-layout-background-full-dark umd-layout-vertical-landing">
-    <!-- Watermark decoration -->
-    <div class="umd-layout-space-horizontal-larger umd-watermark-dark">
-      <span aria-hidden="true" role="presentation">Programs</span>
-    </div>
-
+  <!-- ========================================
+       4. STATS — 3-column grid of large stats
+  ======================================== -->
+  <section class="umd-layout-vertical-landing">
     <div class="umd-layout-space-horizontal-larger">
-      <umd-element-section-intro-wide class="umd-layout-vertical-landing-child" data-theme="dark">
-        <h2 slot="headline">Programs &amp; Degrees</h2>
-        <div slot="actions">
-          <umd-element-call-to-action data-display="secondary" data-theme="dark">
-            <a href="https://sph.umd.edu/academics/departments-units">View All Departments &amp; Units</a>
-          </umd-element-call-to-action>
-        </div>
-      </umd-element-section-intro-wide>
-
-      <div class="umd-layout-grid-columns-four">
-        <umd-element-card-overlay type="image" class="size-large" data-theme="dark">
-          <img slot="image" src="../page-builder/images/small/default/card-background.webp" alt="" loading="lazy" />
-          <h3 slot="headline"><a href="https://sph.umd.edu/undergraduate-degrees">Undergraduate</a></h3>
-          <a slot="cta-icon" href="https://sph.umd.edu/undergraduate-degrees">Explore undergraduate programs</a>
-        </umd-element-card-overlay>
-        <umd-element-card-overlay type="image" class="size-large" data-theme="dark">
-          <img slot="image" src="../page-builder/images/small/default/card-background2.jpg" alt="" loading="lazy" />
-          <h3 slot="headline"><a href="https://sph.umd.edu/academics/masters-degrees">Master's</a></h3>
-          <a slot="cta-icon" href="https://sph.umd.edu/academics/masters-degrees">Explore master's degrees</a>
-        </umd-element-card-overlay>
-        <umd-element-card-overlay type="image" class="size-large" data-theme="dark">
-          <img slot="image" src="../page-builder/images/small/default/card-background.webp" alt="" loading="lazy" />
-          <h3 slot="headline"><a href="https://sph.umd.edu/academics/doctoral-degrees">Doctoral</a></h3>
-          <a slot="cta-icon" href="https://sph.umd.edu/academics/doctoral-degrees">Explore doctoral programs</a>
-        </umd-element-card-overlay>
-        <umd-element-card-overlay type="image" class="size-large" data-theme="dark">
-          <img slot="image" src="../page-builder/images/small/default/card-background2.jpg" alt="" loading="lazy" />
-          <h3 slot="headline"><a href="https://sph.umd.edu/academics/certificates">Certificate Programs</a></h3>
-          <a slot="cta-icon" href="https://sph.umd.edu/academics/certificates">Explore certificates</a>
-        </umd-element-card-overlay>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:48px 32px;">
+        <umd-element-stat data-visual-size="large" data-decoration-line>
+          <span slot="stat">10,000</span>
+          <div slot="text"><p>Undergraduate and Graduate Students</p></div>
+        </umd-element-stat>
+        <umd-element-stat data-visual-size="large" data-decoration-line>
+          <span slot="stat">14</span>
+          <div slot="text"><p>Top-25 Ranked Programs</p></div>
+          <div slot="sub-text"><p><em>U.S. News &amp; World Report</em></p></div>
+        </umd-element-stat>
+        <umd-element-stat data-visual-size="large" data-decoration-line>
+          <span slot="stat">$250M</span>
+          <div slot="text"><p>Annual Sponsored Research Funding</p></div>
+        </umd-element-stat>
       </div>
     </div>
   </section>
 
-  <!-- LATEST NEWS — section-intro-wide + 3-column news card grid -->
+  <!-- ========================================
+       5. FEATURED NEWS
+       section-intro-wide header + sticky-columns:
+       sticky left = 1 overlay card (YouTube link)
+       static right = 7 list-style news cards
+  ======================================== -->
   <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-larger">
-      <umd-element-section-intro-wide class="umd-layout-vertical-landing-child">
-        <h2 slot="headline">Latest News</h2>
-        <div slot="actions">
-          <umd-element-call-to-action data-display="secondary">
-            <a href="https://sph.umd.edu/news">View More Articles</a>
-          </umd-element-call-to-action>
-        </div>
-      </umd-element-section-intro-wide>
-      <div class="sph-news-grid">
-        <umd-element-card data-visual-image-aligned="true">
-          <a slot="image" href="https://sph.umd.edu/news/student-run-study-abroad-inspires-creative-public-health-approaches">
-            <img src="../images/projects/sph/3_0.png" alt="Young Indian pupil watches as UMD student writes on her paper in a classroom in Varanasi" />
-          </a>
-          <p slot="eyebrow">News</p>
-          <h3 slot="headline"><a href="https://sph.umd.edu/news/student-run-study-abroad-inspires-creative-public-health-approaches">Student-run study abroad inspires creative public health approaches</a></h3>
-        </umd-element-card>
-        <umd-element-card data-visual-image-aligned="true">
-          <a slot="image" href="https://sph.umd.edu/news/honoring-2026-school-public-health-award-recipients">
-            <img src="../images/projects/sph/WEB_HEADER__1400_x_1050_px__17.png" alt="Group of five women and men dressed up and posing beside SPH banner" />
-          </a>
-          <p slot="eyebrow">News</p>
-          <h3 slot="headline"><a href="https://sph.umd.edu/news/honoring-2026-school-public-health-award-recipients">Honoring the 2026 School of Public Health Award Recipients</a></h3>
-        </umd-element-card>
-        <umd-element-card data-visual-image-aligned="true">
-          <a slot="image" href="https://sph.umd.edu/news/alumni-network-honors-public-health-leaders">
-            <img src="../images/projects/sph/2025_PHEEL_AMA_Panel_Graphic_-_LinkedIn__1400_x_1050_px_.png" alt="Graphic with red background, SPH logo, and PHEEL Awardees headshots" />
-          </a>
-          <p slot="eyebrow">News</p>
-          <h3 slot="headline"><a href="https://sph.umd.edu/news/alumni-network-honors-public-health-leaders">Alumni Network honors public health leaders</a></h3>
-        </umd-element-card>
-      </div>
-    </div>
-  </section>
 
-  <!-- STUDENT QUOTE — image-expand with featured quote -->
-  <section class="umd-layout-vertical-landing">
-    <umd-layout-image-expand>
-      <div slot="content" class="block max-w-[480px] w-full mr-auto">
-        <umd-element-quote type="feature" data-visual-size="" data-animation="false" data-visual-transparent="true" data-theme="dark">
-          <div slot="quote">
-            <p>Make sure that you're really passionate about what it is that you're learning and what you're doing and the people that you're caring for. Always lead with empathy.</p>
-          </div>
-          <p slot="attribution">Crisdel Mayen Velasquez '25</p>
-          <p slot="attribution-sub-text">Commencement Speaker</p>
-          <div slot="actions">
-            <umd-element-call-to-action data-display="secondary" data-theme="dark">
-              <a href="https://sph.umd.edu/news">Read more stories</a>
-            </umd-element-call-to-action>
-          </div>
-        </umd-element-quote>
-      </div>
-      <img slot="image" src="../images/projects/sph/IMG_9887.JPG" alt="Female student outside by flowers" />
-    </umd-layout-image-expand>
-  </section>
-
-  <!-- EVENTS — sticky-columns: featured event (sticky) + event list (static) -->
-  <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-larger umd-watermark">
-      <span aria-hidden="true" role="presentation">Events</span>
-    </div>
-    <div class="umd-layout-space-horizontal-larger">
-      <umd-element-section-intro-wide class="umd-layout-vertical-landing-child">
-        <h2 slot="headline">Upcoming Events</h2>
+    <div class="umd-layout-space-horizontal-larger umd-layout-vertical-landing-child">
+      <umd-element-section-intro-wide>
+        <h2 slot="headline">Featured News</h2>
         <div slot="actions">
-          <umd-element-call-to-action data-display="secondary">
-            <a href="https://sph.umd.edu/events">View All Events</a>
+          <umd-element-call-to-action>
+            <a href="/news-events/news">See More</a>
           </umd-element-call-to-action>
         </div>
       </umd-element-section-intro-wide>
     </div>
 
     <umd-element-sticky-columns class="umd-layout-space-horizontal-larger" data-layout-position="100px">
-      <!-- Sticky: featured event in promo style -->
+
+      <!-- Sticky column: YouTube feature card -->
       <div slot="sticky-column">
-        <umd-element-event display="promo">
-          <img slot="image" src="../images/projects/sph/52827364201_6daf89bf7c_o.jpg" alt="Students presenting posters at Public Health Research Day" />
-          <time slot="start-date-iso" datetime="2026-05-01T09:00:00">May 1, 2026</time>
-          <time slot="end-date-iso" datetime="2026-05-01T17:00:00">May 1, 2026</time>
-          <h3 slot="headline"><a href="https://sph.umd.edu/research-impact/public-health-research-day-2026">Public Health Research Day 2026</a></h3>
-          <p slot="location">University of Maryland, College Park</p>
-          <div slot="text">
-            <p>Share your research with the UMD community at our annual showcase of student and faculty work in public health.</p>
-          </div>
-        </umd-element-event>
+        <umd-element-card-overlay type="image" class="size-large">
+          <img slot="image" src="../images/projects/cmns/ray-video-still.jpg" alt="Fighting Mosquitoes with Fungi" />
+          <h3 slot="headline">
+            <a href="https://www.youtube.com/watch?v=ammKuIl3LpY">Fighting Mosquitoes with Fungi</a>
+          </h3>
+          <p slot="text">The goal is to kill disease-carrying mosquitoes and replace the chemical insecticides to which they have become resistant.</p>
+          <a slot="cta-icon" href="https://www.youtube.com/watch?v=ammKuIl3LpY">Watch Video</a>
+        </umd-element-card-overlay>
       </div>
 
-      <!-- Static: upcoming SPH events -->
+      <!-- Static column: news article list -->
       <div slot="static-column">
         <div class="umd-layout-grid-gap-stacked">
-          <umd-element-event data-display="list">
-            <time slot="start-date-iso" datetime="2026-04-23T10:30:00">April 23, 2026</time>
-            <time slot="end-date-iso" datetime="2026-04-23T11:00:00">April 23, 2026</time>
-            <h3 slot="headline"><a href="https://sph.umd.edu/events/take-your-kid-workschool-day-2026">Take Your Kid to Work/School Day 2026</a></h3>
-            <p slot="location">SPH Wellness Room 0113</p>
-          </umd-element-event>
-          <umd-element-event data-display="list">
-            <time slot="start-date-iso" datetime="2026-04-24T00:00:00">April 24, 2026</time>
-            <time slot="end-date-iso" datetime="2026-04-24T00:00:00">April 24, 2026</time>
-            <h3 slot="headline"><a href="https://sph.umd.edu/events/info-session-nacchos-student-section-program">Info Session for NACCHO's Student Section Program</a></h3>
-            <p slot="location">Virtual</p>
-          </umd-element-event>
-          <umd-element-event data-display="list">
-            <time slot="start-date-iso" datetime="2026-04-25T00:00:00">April 25, 2026</time>
-            <time slot="end-date-iso" datetime="2026-04-25T00:00:00">April 25, 2026</time>
-            <h3 slot="headline"><a href="https://sph.umd.edu/events/maryland-day-2026">Maryland Day 2026</a></h3>
-            <p slot="location">UMD Campus — McKeldin Mall &amp; SPH Building</p>
-          </umd-element-event>
-          <umd-element-event data-display="list">
-            <time slot="start-date-iso" datetime="2026-04-27T00:00:00">April 27, 2026</time>
-            <time slot="end-date-iso" datetime="2026-04-29T00:00:00">April 29, 2026</time>
-            <h3 slot="headline"><a href="https://sph.umd.edu/events/spring-2026-universitas-21-international-health-research-exchange-u21hrex-symposium-april-27-29th">U21 International Health Research Exchange Symposium</a></h3>
-            <p slot="location">University of Birmingham, UK</p>
-          </umd-element-event>
-          <umd-element-event data-display="list">
-            <time slot="start-date-iso" datetime="2026-04-28T11:00:00">April 28, 2026</time>
-            <time slot="end-date-iso" datetime="2026-04-28T14:00:00">April 28, 2026</time>
-            <h3 slot="headline"><a href="https://sph.umd.edu/events/happy-well-bites-2026-halal-grill-food-truck">Happy &amp; Well Bites 2026: Halal Grill Food Truck</a></h3>
-            <p slot="location">Front of School of Public Health</p>
-          </umd-element-event>
+
+          <umd-element-card data-display="list">
+            <a slot="image" href="/news-events/news/we-are-cmns">
+              <img src="../images/projects/cmns/we-are-cmns-screenshot.png" alt="Meet the College of Computer, Mathematical, and Natural Sciences at UMD" />
+            </a>
+            <h3 slot="headline">
+              <a href="/news-events/news/we-are-cmns">Meet the College of Computer, Mathematical, and Natural Sciences at UMD</a>
+            </h3>
+          </umd-element-card>
+
+          <umd-element-card data-display="list">
+            <a slot="image" href="/news-events/news/atmospheric-oceanic-science-major-allison-fenley-noaa-hollings-scholarship">
+              <img src="../images/projects/cmns/allison-fenley.JPG" alt="Allison Fenley" />
+            </a>
+            <h3 slot="headline">
+              <a href="/news-events/news/atmospheric-oceanic-science-major-allison-fenley-noaa-hollings-scholarship">UMD Atmospheric and Oceanic Science Major Allison Fenley Awarded 2026 Hollings Scholarship</a>
+            </h3>
+          </umd-element-card>
+
+          <umd-element-card data-display="list">
+            <a slot="image" href="/news-events/news/atmospheric-oceanic-science-major-donovan-fry-noaa-hollings-scholarship">
+              <img src="../images/projects/cmns/donovan-fry.jpg" alt="Donovan Fry" />
+            </a>
+            <h3 slot="headline">
+              <a href="/news-events/news/atmospheric-oceanic-science-major-donovan-fry-noaa-hollings-scholarship">UMD Atmospheric and Oceanic Science Major Donovan Fry Awarded 2026 Hollings Scholarship</a>
+            </h3>
+          </umd-element-card>
+
+          <umd-element-card data-display="list">
+            <a slot="image" href="/news-events/news/jenna-strauch-noaa-hollings-scholarship">
+              <img src="../images/projects/cmns/img_1457.jpeg" alt="Jenna Strauch" />
+            </a>
+            <h3 slot="headline">
+              <a href="/news-events/news/jenna-strauch-noaa-hollings-scholarship">UMD Sophomore Jenna Strauch Earns Prestigious NOAA Hollings Scholarship</a>
+            </h3>
+          </umd-element-card>
+
+          <umd-element-card data-display="list">
+            <a slot="image" href="/news-events/news/atmospheric-oceanic-science-major-felix-gomez-noaa-hollings-scholarship">
+              <img src="../images/projects/cmns/20250430_220323_059-2.jpg" alt="Felix Gomez" />
+            </a>
+            <h3 slot="headline">
+              <a href="/news-events/news/atmospheric-oceanic-science-major-felix-gomez-noaa-hollings-scholarship">UMD Atmospheric and Oceanic Science Major Felix Gomez Awarded Prestigious NOAA Hollings Scholarship</a>
+            </h3>
+          </umd-element-card>
+
+          <umd-element-card data-display="list">
+            <a slot="image" href="/news-events/news/nathan-jud-phd-biological-sciences-paleobotanist-william-jewell-college">
+              <img src="../images/projects/cmns/nathan-at-dnm-2025.png" alt="Nathan Jud" />
+            </a>
+            <h3 slot="headline">
+              <a href="/news-events/news/nathan-jud-phd-biological-sciences-paleobotanist-william-jewell-college">UMD Alum Tells Plants' Evolutionary Tale One Fossil at a Time</a>
+            </h3>
+          </umd-element-card>
+
+          <umd-element-card data-display="list">
+            <a slot="image" href="/news-events/news/peter-demuth-cancer-immunotherapy-elicio">
+              <img src="../images/projects/cmns/demuth-sq.jpg" alt="Peter DeMuth" />
+            </a>
+            <h3 slot="headline">
+              <a href="/news-events/news/peter-demuth-cancer-immunotherapy-elicio">Fighting Cancer with Immunotherapy</a>
+            </h3>
+          </umd-element-card>
+
         </div>
       </div>
+
     </umd-element-sticky-columns>
   </section>
 
-  <!-- CTA — "Become a Public Health Terp!" section intro with 2 CTAs -->
-  <section class="umd-layout-vertical-landing">
-    <div class="umd-layout-space-horizontal-normal">
+  <!-- ========================================
+       6. GRAND CHALLENGES
+       Gray background section:
+       section-intro (centered heading + subtext)
+       + pathway (image left / tabs right)
+  ======================================== -->
+  <section class="umd-layout-vertical-landing" style="background: #e6e6e6; padding-top: 120px; padding-bottom: 120px;">
+
+    <div class="umd-layout-space-horizontal-larger umd-layout-vertical-landing-child">
       <umd-element-section-intro include-separator>
-        <h2 slot="headline">Become a Public Health Terp!</h2>
-        <div slot="actions">
-          <div class="umd-layout-grid-inline-tablet-rows">
-            <umd-element-call-to-action data-display="primary">
-              <a href="https://sph.umd.edu/how-apply">How to Apply</a>
-            </umd-element-call-to-action>
-            <umd-element-call-to-action data-display="secondary">
-              <a href="https://sph.umd.edu/admissions/request-information">Request Info</a>
-            </umd-element-call-to-action>
-          </div>
+        <h2 slot="headline">We Take On Humanity's Grand Challenges</h2>
+        <div slot="text">
+          <p>Our education, research, scholarship and creative activities, and service are designed to accelerate solutions to humanity's grand challenges—within our communities and around the globe.</p>
         </div>
       </umd-element-section-intro>
     </div>
+
+    <umd-element-pathway data-layout-image-position="left">
+      <img slot="image" src="../images/projects/cmns/4-grand-challenges.jpg" alt="CMNS Grand Challenges — Climate Change, Human Disease, Artificial Intelligence, Quantum Computing, Space Exploration" />
+      <h2 slot="headline">Explore Our Research Areas</h2>
+      <div slot="text">
+        <umd-element-tabs>
+          <div slot="tabs">
+
+            <div data-title="Climate Change">
+              <p style="line-height: 1.5em; font-size: 16px; margin-bottom: 16px;">We see the signs everywhere—our future is in jeopardy. As Earth's temperature rises, greenhouse gases reach record levels and severe weather events strike with frightening frequency. Our researchers are fiercely committed to the fight against global warming, tapping into satellite data to predict crop-killing droughts, identifying climate-resilient trees, and unraveling the relationship between airborne pollutants and weather conditions.</p>
+              <p style="line-height: 1.5em; font-size: 16px;"><a href="/research/solving-grand-challenges/climate-change">Learn More</a></p>
+            </div>
+
+            <div data-title="Human Disease">
+              <p style="line-height: 1.5em; font-size: 16px; margin-bottom: 16px;">Scientists in CMNS are tackling the dynamics of infectious and hereditary diseases at all scales—from complex multispecies conditions such as malaria to whole-body aging disorders, from the flu's organ-specific infection pathway to the submicroscopic structure of disease-causing viruses and disease-fighting antibodies.</p>
+              <p style="line-height: 1.5em; font-size: 16px;"><a href="/research/solving-grand-challenges/human-disease">Learn More</a></p>
+            </div>
+
+            <div data-title="Artificial Intelligence">
+              <p style="line-height: 1.5em; font-size: 16px; margin-bottom: 16px;">Researchers in CMNS work at the forefront of machine learning technology, using AI for applications that touch weather prediction, health care, transportation, finance, and wildlife conservation—while advancing the science of how computers learn and asking important questions about its impact on society.</p>
+              <p style="line-height: 1.5em; font-size: 16px;"><a href="/research/solving-grand-challenges/artificial-intelligence">Learn More</a></p>
+            </div>
+
+            <div data-title="Quantum Computing">
+              <p style="line-height: 1.5em; font-size: 16px; margin-bottom: 16px;">The University of Maryland is a powerhouse of quantum discovery. Over 200 quantum scientists and engineers are exploiting the unique properties of quantum physics to develop quantum computers capable of currently impossible calculations, ultra-secure quantum networking, and exotic new quantum materials.</p>
+              <p style="line-height: 1.5em; font-size: 16px;"><a href="/research/solving-grand-challenges/quantum-computing">Learn More</a></p>
+            </div>
+
+            <div data-title="Space Exploration">
+              <p style="line-height: 1.5em; font-size: 16px; margin-bottom: 16px;">CMNS astronomers, physicists, atmospheric scientists, and geologists are hard at work on the frontiers of space exploration. The college's close relationship with NASA's Goddard Space Flight Center enables faculty and students to share research facilities and advance our understanding of the universe.</p>
+              <p style="line-height: 1.5em; font-size: 16px;"><a href="/research/solving-grand-challenges/space-exploration">Learn More</a></p>
+            </div>
+
+          </div>
+        </umd-element-tabs>
+      </div>
+    </umd-element-pathway>
+
   </section>
 
-  <!-- FOOTER -->
-  <umd-element-footer data-display="visual">
-    <a slot="logo" href="/"><img src="../page-builder/images/logos/footer-logo.svg" alt="University of Maryland" /></a>
-    <img slot="image" src="../page-builder/images/large/campus/footer-campus.jpg" alt="" />
+  <!-- ========================================
+       7. QUICK LINKS — 4-column overlay card grid
+  ======================================== -->
+  <section class="umd-layout-vertical-landing">
+    <div class="umd-layout-space-horizontal-larger">
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+
+        <umd-element-card-overlay type="image">
+          <img slot="image" src="../images/projects/cmns/ESJ-class-in-session-square.jpg" alt="Students in a class session" />
+          <h3 slot="headline">
+            <a href="/undergraduate/future-students/majors-minors">Majors &amp; Minors</a>
+          </h3>
+        </umd-element-card-overlay>
+
+        <umd-element-card-overlay type="image">
+          <img slot="image" src="../images/projects/cmns/baby-terrapin-square.jpg" alt="Baby Terrapin" />
+          <h3 slot="headline">
+            <a href="/about/alumni">Alumni</a>
+          </h3>
+        </umd-element-card-overlay>
+
+        <umd-element-card-overlay type="image">
+          <img slot="image" src="../images/projects/cmns/Odyssey-covers-square.jpg" alt="Odyssey Magazine covers" />
+          <h3 slot="headline">
+            <a href="/news-events/odyssey">Odyssey Magazine</a>
+          </h3>
+        </umd-element-card-overlay>
+
+        <umd-element-card-overlay type="image">
+          <img slot="image" src="../images/projects/cmns/thumbnail-logo-AIM-sq.png" alt="Research Institutes and Centers" />
+          <h3 slot="headline">
+            <a href="/research/institutes-centers">Research Institutes &amp; Centers</a>
+          </h3>
+        </umd-element-card-overlay>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       8. FOOTER
+  ======================================== -->
+  <umd-element-footer>
+    <a slot="logo" href="https://cmns.umd.edu">
+      <img src="../images/projects/cmns/UMD_CMNS_Left_Color_W.png" alt="College of Computer, Mathematical, and Natural Sciences" />
+    </a>
+    <p slot="contact-headline">College of Computer, Mathematical, and Natural Sciences</p>
+    <address slot="address">
+      Dean's Office: 3400 A.V. Williams Building<br />
+      Undergraduate Student Services: 1300 Symons Hall<br />
+      University of Maryland<br />
+      College Park, MD 20742
+    </address>
+    <div slot="contact-links">
+      <a href="/contact-us">Contact Us</a>
+    </div>
+    <ul slot="social-links">
+      <li><a href="https://bsky.app/profile/umdscience.bsky.social">Bluesky</a></li>
+      <li><a href="https://www.facebook.com/umdcmns">Facebook</a></li>
+      <li><a href="https://www.instagram.com/umdscience/">Instagram</a></li>
+      <li><a href="https://www.linkedin.com/company/umdscience/">LinkedIn</a></li>
+      <li><a href="https://www.reddit.com/user/umd-science/">Reddit</a></li>
+      <li><a href="https://www.threads.com/@umdscience">Threads</a></li>
+      <li><a href="https://x.com/umdscience">X (Twitter)</a></li>
+      <li><a href="https://www.youtube.com/@UMDscience">YouTube</a></li>
+    </ul>
+    <div slot="utility-links">
+      <ul>
+        <li><a href="https://umd.wd1.myworkdayjobs.com/UMCP" target="_blank">Employment</a></li>
+        <li><a href="https://www.umd.edu" target="_blank">UMD Home</a></li>
+        <li><a href="https://umd.edu/privacy-notice" target="_blank">Privacy Notice</a></li>
+        <li><a href="https://umd.edu/web-accessibility" target="_blank">Web Accessibility</a></li>
+        <li><a href="mailto:cmnsweb@umd.edu">Webmaster</a></li>
+      </ul>
+    </div>
   </umd-element-footer>
 
 </body>

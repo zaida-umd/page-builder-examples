@@ -3,20 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UMCP Foundation — University of Maryland College Park Foundation | University of Maryland</title>
+  <!-- SHARED:head-meta:START — generated from shared/head-meta.html; do not edit here -->
+  <!-- ============================================================
+       SHARED CHROME — site-wide <head> meta
+       Inlined into every page by page-builder/tools/build-chrome.py.
+       Edit here, not in pages/*.html.
+
+       SITE-WIDE meta only. A page's own <title> and
+       <meta name="description"> differ per page and stay in the page,
+       below this region.
+
+       The noindex pair below is the scaffold default: a design project
+       is a prototype or client review, and should not surface in
+       search. DELETE IT before the site goes live for real.
+
+       A robots.txt is not an alternative — it is only fetched from a
+       HOST root, and a GitHub Pages project site is served from
+       /<repo>/, so this meta is the only mechanism that applies there.
+       The googlebot line is a belt-and-braces duplicate of the robots
+       line.
+
+       Delete this file if the project has none; the inliner skips a
+       region whose source file is absent.
+  ============================================================ -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <!-- SHARED:head-meta:END -->
+  <title>Home — The Maryland Promise Scholarship Program | University of Maryland</title>
 
   <!-- ============================================================
-       UMD Critical CSS — MUST precede cdn.js
-       If cdn.js loads first, elements upgrade before :defined rules
-       exist and container-type never gets set.
-       Load order: inline <style> → <script> cdn.js → </head>
+       UMD Design System CSS — published min.css from web-styles-library
+       MUST precede cdn.js so :defined / container-type rules exist
+       before custom elements upgrade. Browsers block on stylesheet
+       fetches before parsing the script tag below, so order is safe.
 
-       SOURCE OF TRUTH: styles/critical.css
-       This <style> block is a verbatim copy of styles/critical.css.
-       When updating CSS rules, edit styles/critical.css first, then
-       copy the changes here. See REQUIRED-CSS.md for explanations
-       of what each rule does and why.
+       What's covered by these:
+       - base.min.css         → DS reset, tokens, base typography
+       - tokens.min.css       → CSS custom properties (subset of base)
+       - typography.min.css   → .umd-sans-* / .umd-campaign-* utilities
+       - web-components.min.css → all umd-element-* :defined rules
+                                  (container-type, content-visibility)
+       - font-faces.min.css   → @font-face declarations
+
+       NOT covered (still inline below):
+       - layout.min.css is broken upstream (@media([object Object]))
+         so layout utilities (vertical/horizontal/grid) stay local.
+       - umd-element-utility-header and umd-element-carousel* are
+         not in web-components.min.css yet.
   ============================================================ -->
+  <link rel="stylesheet" href="https://unpkg.com/@universityofmaryland/web-styles-library/css/font-faces.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@universityofmaryland/web-styles-library/css/tokens.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@universityofmaryland/web-styles-library/css/base.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@universityofmaryland/web-styles-library/css/typography.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@universityofmaryland/web-styles-library/css/web-components.min.css">
+
   <style>
     /* ============================================================
        1. COMPONENT REGISTRATION GAP-FILLS
@@ -762,6 +802,216 @@
   </style>
 
   <script src="https://unpkg.com/@universityofmaryland/web-components-library@1.18.12/dist/cdn.js"></script>
+  <!-- SHARED:gate:START — generated from shared/gate.html; do not edit here -->
+  <!-- ============================================================
+       PROTOTYPE ACCESS GATE
+       Inlined into the <head> of every page by
+       page-builder/tools/build-chrome.py. Edit here, not in pages/*.html.
+
+       Keeps a GitHub Pages prototype blank for anyone without the shared
+       credentials, and — with the noindex meta chrome.py stamps into every
+       page — out of search results.
+
+       It is NOT access control. The whole check ships to the browser, so the
+       markup is retrievable with `curl` and the hash can be attacked offline.
+       Keep the project repo PRIVATE and put nothing behind it that would
+       matter if it leaked. See page-builder/scripts/gate.js for the full
+       reasoning.
+
+       DELETE THIS FILE on a project that should be public — the inliner skips
+       a region whose source file is absent, and the next build-chrome.py run
+       strips the block back out of every page.
+
+       ADD AN ACCOUNT — never type a password into this file by hand:
+
+           python3 page-builder/tools/gate.py --write shared/gate.html
+
+       That prompts for the username and password without echoing them, and
+       rewrites the block between the GATE:USERS markers below. The plaintext
+       password is never written to this repo.
+  ============================================================ -->
+  <style>
+    /* The lock is CSS, not JavaScript, and it is unconditional: the page is
+       hidden from the first paint and STAYS hidden if gate.js 404s, throws,
+       or scripting is off. gate.js adds .umd-gate-unlocked only after a
+       password verifies. Do not move this into a JS-added class — that
+       inverts it into fail-open. */
+    html:not(.umd-gate-unlocked) { overflow: hidden; }
+    html:not(.umd-gate-unlocked) body { visibility: hidden; }
+    html:not(.umd-gate-unlocked) body > .umd-gate { visibility: visible; }
+
+    .umd-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-y: auto;
+      background: #000;
+      font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+    }
+
+    .umd-gate__panel {
+      width: 100%;
+      max-width: 420px;
+      margin: auto;
+      padding: 40px 32px;
+      background: #1a1a1a;
+      border-top: 4px solid #e21833;
+      color: #fff;
+      text-align: left;
+    }
+
+    .umd-gate__eyebrow {
+      margin: 0 0 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #ffd200;
+    }
+
+    .umd-gate__title {
+      margin: 0 0 8px;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .umd-gate__message {
+      margin: 0 0 24px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #d1d1d1;
+    }
+
+    .umd-gate__label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #e6e6e6;
+    }
+
+    .umd-gate__input {
+      display: block;
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 16px;   /* below 16px, iOS Safari zooms the page on focus */
+      color: #000;
+      background: #fff;
+      border: 1px solid #757575;
+      border-radius: 0;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .umd-gate__input:focus-visible {
+      outline: 2px solid #ffd200;
+      outline-offset: 2px;
+    }
+
+    .umd-gate__submit {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #e21833;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .umd-gate__submit:hover { background: #c1152b; }
+    .umd-gate__submit:disabled { background: #757575; cursor: default; }
+    .umd-gate__submit:focus-visible { outline: 2px solid #ffd200; outline-offset: 2px; }
+
+    /* Always in the layout, so filling it in on a failed attempt does not
+       shove the button out from under the cursor. */
+    .umd-gate__error {
+      min-height: 20px;
+      margin: 0 0 8px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #ff9a9a;
+    }
+
+    .umd-gate__note {
+      margin: 16px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #a8a8a8;
+    }
+
+    /* gate.js never arrived — say so, rather than leaving a blank page that
+       looks like a broken deploy. Still locked: the rule above is untouched. */
+    html.umd-gate-error body::before {
+      content: "This prototype could not load its sign-in. Check that page-builder/scripts/gate.js is published alongside the site.";
+      visibility: visible;
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: #000;
+      color: #fff;
+      font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: center;
+    }
+  </style>
+  <noscript>
+    <style>
+      html:not(.umd-gate-unlocked) body::before {
+        content: "This prototype requires JavaScript to sign in.";
+        visibility: visible;
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        background: #000;
+        color: #fff;
+        font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+        font-size: 16px;
+        text-align: center;
+      }
+    </style>
+  </noscript>
+  <script>
+    window.UMD_GATE = {
+      title: 'This prototype is private',
+      message: 'Sign in with the credentials shared with you to view this preview.',
+      note: 'Trouble signing in? Contact the project team.',
+
+      /* 0 = this browser tab only. Otherwise the sign-in carries across tabs
+         and pages for this many hours, so a reviewer opening links in new
+         tabs is not asked again. */
+      rememberHours: 12,
+
+      /* PBKDF2 rounds. Must match what tools/gate.py used to make the hashes
+         below — change it and every account stops verifying. */
+      iterations: 310000,
+
+      /* GATE:USERS:START — written by page-builder/tools/gate.py; do not hand-edit */
+      users: []
+      /* GATE:USERS:END */
+    };
+  </script>
+  <script src="../page-builder/scripts/gate.js"
+          onerror="document.documentElement.classList.add('umd-gate-error')" defer></script>
+  <!-- SHARED:gate:END -->
 </head>
 <body>
 
@@ -775,177 +1025,373 @@
 
   <!-- ========================================
        2. SITE NAVIGATION HEADER
-       UMCP Foundation logo and navigation.
-       Logo: local copy of downloaded UMCPF_black_horizontal_logo.png.
+       Source page uses text-only site identity ("The Maryland Promise
+       Scholarship Program") — no department logo image available.
+       Using primary-logo-dark.svg fallback per RULES.md §23.
+       Sub-links use slot="sub-link" directly on <a> (RULES.md §4).
   ======================================== -->
   <umd-element-navigation-header sticky class="umd-layout-space-horizontal-full">
-    <a slot="logo" href="https://umcpf.umd.edu/">
-      <img src="../images/projects/umcpf/UMCPF_black_horizontal_logo.png" alt="University of Maryland College Park Foundation" />
+    <a slot="logo" href="https://promise.umd.edu/">
+      <img src="../page-builder/images/logos/primary-logo-dark.svg" alt="The Maryland Promise Scholarship Program" />
     </a>
     <nav slot="main-navigation">
       <umd-element-nav-item>
-        <a slot="primary-link" href="https://umcpf.umd.edu/about-foundation">About the Foundation</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/about-foundation/announcements">Announcements</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/about-foundation/outstanding-service-award">Outstanding Service Award</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/about-foundation/foundation-staff">Foundation Staff</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/about-foundation/contact">Contact</a>
+        <a slot="primary-link" href="https://promise.umd.edu/about">About</a>
+        <a slot="sub-link" href="https://promise.umd.edu/about/program-components">Program Components</a>
+        <a slot="sub-link" href="https://promise.umd.edu/about/eligibility-and-requirements">Eligibility and Requirements</a>
       </umd-element-nav-item>
       <umd-element-nav-item>
-        <a slot="primary-link" href="https://umcpf.umd.edu/board-trustees">Board of Trustees</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/board-trustees/board-chair">From the Board Chair</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/board-trustees/board-directory">Board Directory</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/board-trustees/committees">Committees</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/board-trustees/ex-officio-trustees">Ex Officio Trustees</a>
+        <a slot="primary-link" href="https://promise.umd.edu/scholars">Our Scholars</a>
+        <a slot="sub-link" href="https://promise.umd.edu/scholars/cohort-1">Cohort 1 (2019–20)</a>
+        <a slot="sub-link" href="https://promise.umd.edu/scholars/cohort-2">Cohort 2 (2020–21)</a>
+        <a slot="sub-link" href="https://promise.umd.edu/scholars/cohort-3">Cohort 3 (2021–22)</a>
+        <a slot="sub-link" href="https://promise.umd.edu/scholars/cohort-4">Cohort 4 (2022–23)</a>
+        <a slot="sub-link" href="https://promise.umd.edu/scholars/cohort-5">Cohort 5 (2023–24)</a>
+        <a slot="sub-link" href="https://promise.umd.edu/scholars/cohort-6">Cohort 6 (2024–25)</a>
       </umd-element-nav-item>
       <umd-element-nav-item>
-        <a slot="primary-link" href="https://umcpf.umd.edu/resources">Resources</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/resources/investment-strategy">Investment Strategy</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/resources/governance-policies">Governance Policies</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/resources/reports">Reports</a>
-        <a slot="sub-link" href="https://umcpf.umd.edu/resources/tax-information">Tax Information</a>
+        <a slot="primary-link" href="https://promise.umd.edu/support-clark-challenge-maryland-promise">Support the Program</a>
       </umd-element-nav-item>
       <umd-element-nav-item>
-        <a slot="primary-link" href="https://go.umd.edu/umcpfzeck" target="_blank" rel="noopener">Trustee Login</a>
+        <a slot="primary-link" href="https://promise.umd.edu/impact">Impact Stories</a>
+        <a slot="sub-link" href="https://promise.umd.edu/impact/68m-gift-extend-opportunities-underserved-montgomery-county-students">$6.8M Gift to Extend Opportunities</a>
+      </umd-element-nav-item>
+      <umd-element-nav-item>
+        <a slot="primary-link" href="https://promise.umd.edu/contact-us">Contact</a>
       </umd-element-nav-item>
     </nav>
   </umd-element-navigation-header>
 
   <!-- ========================================
        3. HERO
-       Standard background image hero (no data-display = image fills background).
-       Dark theme for white text over Hornbake Plaza photo.
-       Section carries umd-layout-vertical-landing — light quote section follows.
+       Standard background image hero — no data-display (RULES.md §22).
+       Dark theme for white text. Centered text layout.
+       Actual Hornbake Plaza photo from source (promise.umd.edu).
+       Light Pines quote section follows → umd-layout-vertical-landing applied.
   ======================================== -->
   <section class="umd-layout-vertical-landing">
     <umd-element-hero data-theme="dark" data-animation data-layout-text="center">
-      <img slot="image" src="../images/projects/umcpf/HornbakePlaza_10242017_9204-1920x1080.jpg" alt="Soft poofy clouds over a bright and warm Hornbake Plaza, full of green and colorful tree leaves." />
-      <h1 slot="headline">Welcome</h1>
+      <img slot="image" src="../images/projects/promise/HornbakePlaza_11092011_6645-fixed-2-min.jpg"
+           alt="Hornbake plaza as viewed from the top of Hornbake Library. Scene includes fall colors in the trees and students walking along sidewalks on a crisp fall day." />
+      <h1 slot="headline">Our Promise</h1>
       <div slot="text">
-        <p>Join us in support of past, present and future Terps</p>
+        <p>The Maryland Promise Scholarship Program provides supportive educational and financial opportunities to undergraduate students from the state of Maryland and Washington, D.C. exhibiting strong academic and leadership potential.</p>
       </div>
       <div slot="actions">
         <umd-element-call-to-action data-display="primary" data-theme="dark">
-          <a href="https://umcpf.umd.edu/about-foundation">Learn about the UMCP Foundation</a>
+          <a href="https://promise.umd.edu/scholars">Meet Our Scholars</a>
         </umd-element-call-to-action>
       </div>
     </umd-element-hero>
   </section>
 
   <!-- ========================================
-       4. BOARD CHAIR QUOTE
-       Featured quote from Albert P. Carey '74, Chair of the Board of Trustees.
+       4. PRESIDENT PINES QUOTE
+       Featured quote from University of Maryland President Darryll J. Pines.
        umd-element-quote with data-display="featured" for visual prominence.
+       Separate attribution and attribution-sub-text slots (RULES.md §5).
        Wrapped in normal (1280px) horizontal lock per RULES.md §12.
-       Source content is quote + attribution only — umd-element-quote is correct
-       per RULES.md §5 (pathway-highlight requires real body copy in slot="text").
+       Light "next generation" section follows → umd-layout-vertical-landing applied.
   ======================================== -->
   <section class="umd-layout-vertical-landing">
     <div class="umd-layout-space-horizontal-normal">
       <umd-element-quote data-display="featured">
-        <img slot="image" src="../images/projects/umcpf/AlCarey_10282021_JC_204814.jpg" alt="Albert P. Carey '74" />
-        <p slot="quote">I invite you to support past, present and future Terps; honor our institution's traditions; and celebrate its far-reaching impact and bright future. And thank you for all you have done and will continue to do to move Maryland Fearlessly Forward.</p>
-        <p slot="attribution">Albert P. Carey '74</p>
-        <p slot="attribution-sub-text">Chair, Board of Trustees</p>
+        <img slot="image" src="../images/projects/promise/DarryllPines_05262020_JC_7405_Final-square.jpg"
+             alt="University of Maryland President Darryll J. Pines" />
+        <p slot="quote">The Maryland Promise Scholarship Program is an investment in our region's talented, hardworking students. Scholars in the program will receive support to develop academically, professionally and personally—and to ultimately become the next generation of leaders.</p>
+        <p slot="attribution">Darryll J. Pines</p>
+        <p slot="attribution-sub-text">President, University of Maryland</p>
       </umd-element-quote>
     </div>
   </section>
 
   <!-- ========================================
-       5. FUNDRAISING PRIORITIES
-       Two flagship giving priorities from the source page.
-       Section intro wide labels the section; 2-column card grid below.
-       data-visual-image-aligned="true" ensures consistent image crop height across both cards.
-       Wrapper div carries umd-layout-vertical-landing-child (RULES.md §10).
+       6. INAUGURAL CLASS — IMAGE EXPAND
+       Full-bleed scroll-reveal of the inaugural class group photo.
+       Source order from promise.umd.edu: photo → stats → video.
+       Text must be explicitly white — component has no data-theme support (RULES.md §17).
+       No dark section wrapper — image-expand's own overlay handles legibility.
+       Dark stats section follows immediately → NO umd-layout-vertical-landing.
   ======================================== -->
-  <section class="umd-layout-vertical-landing">
+  <section>
+    <umd-layout-image-expand>
+      <div slot="content" class="block max-w-[480px] w-full mr-auto">
+        <h2 class="umd-sans-largest-uppercase text-white" style="margin: 0 0 16px;">The next generation of leaders</h2>
+        <div class="umd-text-rich-advanced-dark">
+          <p>The Maryland Promise Scholarship Program emphasizes four important components to help cultivate the next generation of leaders and community change agents:</p>
+          <p><strong>Academic Excellence &nbsp;/&nbsp; Professional Development / Leadership Development &nbsp;/&nbsp; Community Engagement</strong></p>
+          <p><small>The inaugural class of the Maryland Promise Scholarship Program with the Clark Foundation Front row left to right: Winter Hawk, Rachel (Tessa) Choi, Amoni Hawkins, Amanda Hernández, Daryl Perry, Anna Phung, Vivian Le and Julian Guerra Back row left to right: Dean Bill Cohen, Danielle Hamberger (Clark Foundation), Michelle Udeli, Joe Del Guercio (Clark Foundation), Courtney Clark Pastrick (Clark Foundation), Natalie Grandison (Clark Foundation), Andrew Knutson (Clark Foundation), Diana Lanahan (Clark Foundation) and Sarah Elbert (Clark Foundation).</small></p>
+        </div>
+      </div>
+      <img slot="image" src="../images/projects/promise/MarylandPromise2020_02112020_JC_9982-4x3-min.jpg"
+           alt="The inaugural class of the Maryland Promise Scholarship Program seated and standing together with the Clark Foundation, all dressed professionally." />
+    </umd-layout-image-expand>
+  </section>
+
+  <!-- ========================================
+       7. PROGRAM STATS — DARK SECTION
+       Three program statistics on a dark background.
+       3 stats → single 3-column grid (RULES.md §9).
+       data-theme="dark" set individually on each stat (RULES.md §14).
+       Dark video section follows → NO umd-layout-vertical-landing.
+  ======================================== -->
+  <section class="umd-layout-background-full-dark">
     <div class="umd-layout-space-horizontal-normal">
-      <umd-element-section-intro class="umd-layout-vertical-landing-child">
-        <h2 slot="headline">Fundraising Priorities</h2>
-      </umd-element-section-intro>
-      <div class="umd-layout-grid-masonry">
-
-        <umd-element-card-overlay type="image" class="size-large">
-          <img slot="image" src="../images/projects/umcpf/Testudo_11302017_9791.jpg" alt="Testudo statue at McKeldin Library" />
-          <h3 slot="headline">
-            <a href="https://giving.umd.edu/campaigns/ag-priorities-causes/urgent-needs/urgent-needs-campus-pantry" target="_blank" rel="noopener">The Campus Pantry</a>
-          </h3>
-          <p slot="text">Your gift to the Campus Pantry can help alleviate food insecurity among the UMD campus community by providing access to healthy, nutritious food and other resources.</p>
-          <div slot="actions">
-            <umd-element-call-to-action data-display="secondary" data-theme="dark">
-              <a href="https://giving.umd.edu/campaigns/ag-priorities-causes/urgent-needs/urgent-needs-campus-pantry" target="_blank" rel="noopener">Learn More About the Campus Pantry</a>
-            </umd-element-call-to-action>
-          </div>
-        </umd-element-card-overlay>
-
-        <umd-element-card-overlay type="image" class="size-large">
-          <img slot="image" src="../images/projects/umcpf/ThurgoodMarshallHall_DoGood_05222023_JC_9303.JPG" alt="Thurgood Marshall Hall — Do Good Campus initiative" />
-          <h3 slot="headline">
-            <a href="https://giving.umd.edu/make-a-gift?kwoDCpreselect=KDC-PP23357" target="_blank" rel="noopener">Do Good Campus</a>
-          </h3>
-          <p slot="text">Your support can power innovative teams, passionate leaders and curious problem solvers, who have big ideas and are taking action to tackle issues affecting our communities locally, nationally and globally.</p>
-          <div slot="actions">
-            <umd-element-call-to-action data-display="secondary" data-theme="dark">
-              <a href="https://giving.umd.edu/make-a-gift?kwoDCpreselect=KDC-PP23357" target="_blank" rel="noopener">Make a gift to the Do Good Campus Operating Fund</a>
-            </umd-element-call-to-action>
-          </div>
-        </umd-element-card-overlay>
-
+      <div class="umd-layout-grid-gap-three">
+        <umd-element-stat data-visual-size="large" data-decoration-line data-theme="dark">
+          <span slot="stat">137</span>
+          <div slot="text"><p>Total Maryland Promise Scholarship Program scholars</p></div>
+        </umd-element-stat>
+        <umd-element-stat data-visual-size="large" data-decoration-line data-theme="dark">
+          <span slot="stat">$219M</span>
+          <div slot="text"><p>Transformative investment to propel UMD to the forefront of education and research worldwide</p></div>
+        </umd-element-stat>
+        <umd-element-stat data-visual-size="large" data-decoration-line data-theme="dark">
+          <span slot="stat">13</span>
+          <div slot="text"><p>Colleges and schools represented by Promise scholars</p></div>
+        </umd-element-stat>
       </div>
     </div>
   </section>
 
   <!-- ========================================
-       6. FUNDRAISING NEWS — MARYLAND TODAY — MARYLAND TODAY FEED
-       Dynamic news feed filtered to fundraising/giving category.
-       Token and category ID (10341) taken directly from umcpf.umd.edu source HTML.
-       Section intro wide with "View All Articles" CTA at right.
-       Wrapper div carries umd-layout-vertical-landing-child per RULES.md §10.
+       8. VIDEO — BUILDING TOGETHER
+       YouTube embed of the "Building Together: An Investment for Maryland"
+       film from promise.umd.edu. Dark background continues the visual band.
+       LAST dark section before light content — umd-layout-vertical-landing
+       applied here to create gap before Clark quote (RULES.md §19).
+  ======================================== -->
+  <section class="umd-layout-background-full-dark umd-layout-vertical-landing">
+    <div class="umd-layout-space-horizontal-normal">
+      <umd-element-section-intro data-theme="dark" class="umd-layout-vertical-landing-child">
+        <h2 slot="headline">Building Together: An Investment for Maryland</h2>
+      </umd-element-section-intro>
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/7K8-UbuP83U"
+                title="Building Together: An Investment for Maryland"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       9. COURTNEY CLARK PASTRICK QUOTE
+       Featured quote from the daughter of A. James Clark.
+       slot="actions" accepts a direct <a> — CTA rendered inside the quote
+       below the image, not as a separate element below (RULES.md).
+       Light support CTAs section follows → umd-layout-vertical-landing applied.
+  ======================================== -->
+  <section class="umd-layout-vertical-landing">
+    <div class="umd-layout-space-horizontal-normal">
+      <umd-element-quote data-display="featured">
+        <img slot="image" src="../images/projects/promise/Mr_Clark-square.jpg"
+             alt="Headshot of A. James Clark — smiling man with white hair, gray suit, red tie, light blue dress shirt, and gold background." />
+        <p slot="quote">My father always said that education changes lives, and his education changed his life.</p>
+        <p slot="attribution">Courtney Clark Pastrick</p>
+        <p slot="attribution-sub-text">Daughter of A. James Clark and Board Chair, A. James &amp; Alice B. Clark Foundation</p>
+        <div slot="actions">
+          <umd-element-call-to-action data-display="secondary">
+            <a href="https://buildingtogether.umd.edu/story-a-james-clark" target="_blank" rel="noopener">Read more about A. James Clark</a>
+          </umd-element-call-to-action>
+        </div>
+      </umd-element-quote>
+    </div>
+  </section>
+
+  <!-- ========================================
+       10. SUPPORT CTAS
+       Two primary giving actions from the source page. Card-overlay
+       (no image) grid provides visual weight over a plain CTA row.
+       Donor Impact Stories section follows → umd-layout-vertical-landing applied.
+  ======================================== -->
+  <section class="umd-layout-vertical-landing">
+    <div class="umd-layout-space-horizontal-larger">
+      <div class="umd-layout-grid-gap-two">
+        <umd-element-card-overlay>
+          <h3 slot="headline">
+            <a href="https://promise.umd.edu/support-clark-challenge-maryland-promise">Support the Maryland Promise Scholarship Program</a>
+          </h3>
+          <a slot="cta-icon" href="https://promise.umd.edu/support-clark-challenge-maryland-promise">Support</a>
+        </umd-element-card-overlay>
+        <umd-element-card-overlay>
+          <h3 slot="headline">
+            <a href="https://buildingtogether.umd.edu/" target="_blank" rel="noopener">Building Together: An Investment for Maryland</a>
+          </h3>
+          <a slot="cta-icon" href="https://buildingtogether.umd.edu/" target="_blank" rel="noopener">Learn More</a>
+        </umd-element-card-overlay>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       11. DONOR IMPACT STORIES
+       Section intro wide with "Donor Impact Stories" heading and CTA.
+       Source uses umd-today-feed (categories=10476, token=7B8wU8x7V95qU8LGei4KrFn8mKfAPMKT)
+       for live news — static umd-element-card components shown here for
+       design system demonstration. Replace with umd-feed-news for production.
+       Footer utility links section follows → umd-layout-vertical-landing applied.
   ======================================== -->
   <section class="umd-layout-vertical-landing">
     <div class="umd-layout-space-horizontal-larger">
       <div class="umd-layout-vertical-landing-child">
         <umd-element-section-intro-wide>
-          <h2 slot="headline">Fundraising News</h2>
+          <h2 slot="headline">Donor Impact Stories</h2>
           <div slot="actions">
             <umd-element-call-to-action data-display="secondary">
-              <a href="https://today.umd.edu/search?categories=division-university-relations" target="_blank" rel="noopener">View All Articles</a>
+              <a href="https://today.umd.edu/initiatives/maryland-promise-program" target="_blank" rel="noopener">Read More on Maryland Today</a>
             </umd-element-call-to-action>
           </div>
         </umd-element-section-intro-wide>
       </div>
-      <div class="news-grid-three">
+      <div class="news-grid-three umd-layout-grid-child-fill-height umd-animation-grid">
+        <umd-element-card data-visual-image-aligned="true">
+          <img slot="image" src="../page-builder/images/small/people/student-group.jpg" alt="Group of Maryland Promise Scholars" />
+          <p slot="eyebrow">Impact</p>
+          <a slot="headline" href="https://promise.umd.edu/impact/68m-gift-extend-opportunities-underserved-montgomery-county-students">$6.8M Gift to Extend Opportunities to Underserved Montgomery County Students</a>
+          <p slot="text">A landmark gift from the A. James &amp; Alice B. Clark Foundation expands the Maryland Promise Scholarship Program to reach more talented students from underserved communities.</p>
+        </umd-element-card>
         <umd-element-card data-visual-image-aligned="true">
           <img slot="image" src="../page-builder/images/small/people/2-female-students-in-booth-pathway1.jpg" alt="Two students collaborating" />
-          <p slot="eyebrow">Philanthropy</p>
-          <a slot="headline" href="https://today.umd.edu">Alum Gives $1M to Bolster Do Good Education, Women in Engineering</a>
-          <p slot="text">A generous gift from a UMD alumna will create new opportunities for students in the Do Good Institute and expand support for women pursuing engineering degrees.</p>
+          <p slot="eyebrow">Scholars</p>
+          <a slot="headline" href="https://today.umd.edu/initiatives/maryland-promise-program">Promise Scholars Lead the Next Generation of Change</a>
+          <p slot="text">From academic excellence to community engagement, Maryland Promise Scholars are developing the skills and values to become transformative leaders in their fields and communities.</p>
         </umd-element-card>
         <umd-element-card data-visual-image-aligned="true">
-          <img slot="image" src="../page-builder/images/small/people/student-group.jpg" alt="UMD students celebrating Giving Day" />
-          <p slot="eyebrow">Giving Day</p>
-          <a slot="headline" href="https://today.umd.edu">Giving Day Raises Record-Smashing $9.4M</a>
-          <p slot="text">Maryland's annual day of giving broke every previous record, with thousands of donors from around the world coming together to invest in the university's future.</p>
-        </umd-element-card>
-        <umd-element-card data-visual-image-aligned="true">
-          <img slot="image" src="../page-builder/images/small/people/2-people-at-laptop.jpg" alt="Two people working together at a laptop" />
-          <p slot="eyebrow">Giving Day</p>
-          <a slot="headline" href="https://today.umd.edu">The Matchmakers of Giving Day</a>
-          <p slot="text">Behind every record-breaking Giving Day is a team of dedicated volunteers and challenge donors who match gifts and inspire the Maryland community to give.</p>
+          <img slot="image" src="../page-builder/images/small/people/2-people-at-laptop.jpg" alt="Two students working together at a laptop" />
+          <p slot="eyebrow">Development</p>
+          <a slot="headline" href="https://today.umd.edu/initiatives/maryland-promise-program">Professional Development at the Heart of the Promise Program</a>
+          <p slot="text">Through mentorship, internships, and leadership experiences, Maryland Promise prepares scholars for successful careers and lifelong civic engagement.</p>
         </umd-element-card>
       </div>
     </div>
   </section>
 
   <!-- ========================================
-       7. FOOTER
-       Visual footer with campus background image.
+       12. FOOTER UTILITY LINKS
+       Four quick-access links from the source page's bottom CTA row.
+       card-overlay (no image) grid for visual weight over plain links.
+       Visual footer follows → umd-layout-vertical-landing applied.
+  ======================================== -->
+  <section class="umd-layout-vertical-landing">
+    <div class="umd-layout-space-horizontal-larger">
+      <div class="umd-layout-grid-gap-three">
+        <umd-element-card-icon data-theme="dark">
+          <img slot="image" src="../page-builder/images/icons/icon-link-dark.svg" alt="" />
+          <h3 slot="headline">
+            <a href="https://promise.umd.edu/support-clark-challenge-maryland-promise">Support the Program</a>
+          </h3>
+        </umd-element-card-icon>
+        <umd-element-card-icon data-theme="dark">
+          <img slot="image" src="../page-builder/images/icons/icon-link-dark.svg" alt="" />
+          <h3 slot="headline">
+            <a href="https://promise.umd.edu/contact-us">Contact Us</a>
+          </h3>
+        </umd-element-card-icon>
+        <umd-element-card-icon data-theme="dark">
+          <img slot="image" src="../page-builder/images/icons/icon-link-dark.svg" alt="" />
+          <h3 slot="headline">
+            <a href="https://promise.umd.edu/about/eligibility-and-requirements">Eligibility &amp; Requirements</a>
+          </h3>
+        </umd-element-card-icon>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       13. FOOTER
+       Visual footer with campus background image per skill instructions.
   ======================================== -->
   <umd-element-footer data-display="visual">
-    <a slot="logo" href="https://umcpf.umd.edu/">
+    <a slot="logo" href="https://promise.umd.edu/">
       <img src="../page-builder/images/logos/footer-logo.svg" alt="University of Maryland" />
     </a>
     <img slot="image" src="../page-builder/images/large/campus/footer-campus.jpg" alt="" />
   </umd-element-footer>
+
+  <!-- ========================================
+       GRID ENTRY ANIMATIONS
+       On by default for all layout grid utilities. Add
+       data-animation="off" on a grid to opt out.
+  ======================================== -->
+  <script>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var GRID_SELECTORS = [
+        '.umd-layout-grid-gap-two',
+        '.umd-layout-grid-gap-three',
+        '.umd-layout-grid-gap-stacked',
+        '.umd-layout-grid-columns-four',
+        '.umd-layout-grid-masonry',
+        '.umd-layout-grid-inline-tablet-rows',
+        '.umd-animation-grid',
+        '.umd-grid-animation'
+      ].map(function (sel) { return sel + ':not([data-animation="off"])'; });
+
+      var style = document.createElement('style');
+      style.textContent = [
+        '@keyframes fade-in-from-bottom {',
+        '  from { opacity: 0; transform: translateY(50px); }',
+        '  to   { opacity: 1; transform: translateY(0); }',
+        '}',
+        ':where(' + GRID_SELECTORS.join(',') + ') > * {',
+        '  opacity: 0;',
+        '  transform: translateY(50px);',
+        '}',
+        '.umd-animation-transition-fade-bottom {',
+        '  animation: fade-in-from-bottom 1s forwards;',
+        '}'
+      ].join('\n');
+      document.head.appendChild(style);
+
+      function tagRowOffsets(grid) {
+        var children = Array.prototype.slice.call(grid.children);
+        var prevTop = null;
+        children.forEach(function (child) {
+          var top = child.getBoundingClientRect().top;
+          if (prevTop !== null && Math.abs(top - prevTop) < 1) {
+            child.dataset.animation = 'offset';
+          } else {
+            delete child.dataset.animation;
+          }
+          prevTop = top;
+        });
+      }
+
+      function init() {
+        var grids = document.querySelectorAll(GRID_SELECTORS.join(','));
+        if (!grids.length) return;
+
+        grids.forEach(tagRowOffsets);
+        window.addEventListener('resize', function () {
+          grids.forEach(tagRowOffsets);
+        });
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            el.style.animationDelay = el.dataset.animation === 'offset' ? '350ms' : '0ms';
+            el.classList.add('umd-animation-transition-fade-bottom');
+            observer.unobserve(el);
+          });
+        }, { threshold: 0.35 });
+
+        grids.forEach(function (grid) {
+          Array.prototype.forEach.call(grid.children, function (child) {
+            observer.observe(child);
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
 
 </body>
 </html>

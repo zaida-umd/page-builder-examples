@@ -3,10 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search | University of Maryland</title>
+  <!-- SHARED:head-meta:START — generated from shared/head-meta.html; do not edit here -->
+  <!-- ============================================================
+       SHARED CHROME — site-wide <head> meta
+       Inlined into every page by page-builder/tools/build-chrome.py.
+       Edit here, not in pages/*.html.
+
+       SITE-WIDE meta only. A page's own <title> and
+       <meta name="description"> differ per page and stay in the page,
+       below this region.
+
+       The noindex pair below is the scaffold default: a design project
+       is a prototype or client review, and should not surface in
+       search. DELETE IT before the site goes live for real.
+
+       A robots.txt is not an alternative — it is only fetched from a
+       HOST root, and a GitHub Pages project site is served from
+       /<repo>/, so this meta is the only mechanism that applies there.
+       The googlebot line is a belt-and-braces duplicate of the robots
+       line.
+
+       Delete this file if the project has none; the inliner skips a
+       region whose source file is absent.
+  ============================================================ -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <!-- SHARED:head-meta:END -->
+  <title>UMCP Foundation — University of Maryland College Park Foundation | University of Maryland</title>
 
   <!-- ============================================================
-       UMD Critical CSS — verbatim copy of styles/critical.css.
+       UMD Critical CSS — MUST precede cdn.js
+       If cdn.js loads first, elements upgrade before :defined rules
+       exist and container-type never gets set.
+       Load order: inline <style> → <script> cdn.js → </head>
+
+       SOURCE OF TRUTH: styles/critical.css
+       This <style> block is a verbatim copy of styles/critical.css.
+       When updating CSS rules, edit styles/critical.css first, then
+       copy the changes here. See REQUIRED-CSS.md for explanations
+       of what each rule does and why.
   ============================================================ -->
   <style>
     /* ============================================================
@@ -753,204 +788,400 @@
   </style>
 
   <script src="https://unpkg.com/@universityofmaryland/web-components-library@1.18.12/dist/cdn.js"></script>
+  <!-- SHARED:gate:START — generated from shared/gate.html; do not edit here -->
+  <!-- ============================================================
+       PROTOTYPE ACCESS GATE
+       Inlined into the <head> of every page by
+       page-builder/tools/build-chrome.py. Edit here, not in pages/*.html.
+
+       Keeps a GitHub Pages prototype blank for anyone without the shared
+       credentials, and — with the noindex meta chrome.py stamps into every
+       page — out of search results.
+
+       It is NOT access control. The whole check ships to the browser, so the
+       markup is retrievable with `curl` and the hash can be attacked offline.
+       Keep the project repo PRIVATE and put nothing behind it that would
+       matter if it leaked. See page-builder/scripts/gate.js for the full
+       reasoning.
+
+       DELETE THIS FILE on a project that should be public — the inliner skips
+       a region whose source file is absent, and the next build-chrome.py run
+       strips the block back out of every page.
+
+       ADD AN ACCOUNT — never type a password into this file by hand:
+
+           python3 page-builder/tools/gate.py --write shared/gate.html
+
+       That prompts for the username and password without echoing them, and
+       rewrites the block between the GATE:USERS markers below. The plaintext
+       password is never written to this repo.
+  ============================================================ -->
+  <style>
+    /* The lock is CSS, not JavaScript, and it is unconditional: the page is
+       hidden from the first paint and STAYS hidden if gate.js 404s, throws,
+       or scripting is off. gate.js adds .umd-gate-unlocked only after a
+       password verifies. Do not move this into a JS-added class — that
+       inverts it into fail-open. */
+    html:not(.umd-gate-unlocked) { overflow: hidden; }
+    html:not(.umd-gate-unlocked) body { visibility: hidden; }
+    html:not(.umd-gate-unlocked) body > .umd-gate { visibility: visible; }
+
+    .umd-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-y: auto;
+      background: #000;
+      font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+    }
+
+    .umd-gate__panel {
+      width: 100%;
+      max-width: 420px;
+      margin: auto;
+      padding: 40px 32px;
+      background: #1a1a1a;
+      border-top: 4px solid #e21833;
+      color: #fff;
+      text-align: left;
+    }
+
+    .umd-gate__eyebrow {
+      margin: 0 0 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #ffd200;
+    }
+
+    .umd-gate__title {
+      margin: 0 0 8px;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .umd-gate__message {
+      margin: 0 0 24px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #d1d1d1;
+    }
+
+    .umd-gate__label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #e6e6e6;
+    }
+
+    .umd-gate__input {
+      display: block;
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 16px;   /* below 16px, iOS Safari zooms the page on focus */
+      color: #000;
+      background: #fff;
+      border: 1px solid #757575;
+      border-radius: 0;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .umd-gate__input:focus-visible {
+      outline: 2px solid #ffd200;
+      outline-offset: 2px;
+    }
+
+    .umd-gate__submit {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #e21833;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .umd-gate__submit:hover { background: #c1152b; }
+    .umd-gate__submit:disabled { background: #757575; cursor: default; }
+    .umd-gate__submit:focus-visible { outline: 2px solid #ffd200; outline-offset: 2px; }
+
+    /* Always in the layout, so filling it in on a failed attempt does not
+       shove the button out from under the cursor. */
+    .umd-gate__error {
+      min-height: 20px;
+      margin: 0 0 8px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #ff9a9a;
+    }
+
+    .umd-gate__note {
+      margin: 16px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #a8a8a8;
+    }
+
+    /* gate.js never arrived — say so, rather than leaving a blank page that
+       looks like a broken deploy. Still locked: the rule above is untouched. */
+    html.umd-gate-error body::before {
+      content: "This prototype could not load its sign-in. Check that page-builder/scripts/gate.js is published alongside the site.";
+      visibility: visible;
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: #000;
+      color: #fff;
+      font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: center;
+    }
+  </style>
+  <noscript>
+    <style>
+      html:not(.umd-gate-unlocked) body::before {
+        content: "This prototype requires JavaScript to sign in.";
+        visibility: visible;
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        background: #000;
+        color: #fff;
+        font-family: Interstate, Helvetica, Arial, Verdana, sans-serif;
+        font-size: 16px;
+        text-align: center;
+      }
+    </style>
+  </noscript>
+  <script>
+    window.UMD_GATE = {
+      title: 'This prototype is private',
+      message: 'Sign in with the credentials shared with you to view this preview.',
+      note: 'Trouble signing in? Contact the project team.',
+
+      /* 0 = this browser tab only. Otherwise the sign-in carries across tabs
+         and pages for this many hours, so a reviewer opening links in new
+         tabs is not asked again. */
+      rememberHours: 12,
+
+      /* PBKDF2 rounds. Must match what tools/gate.py used to make the hashes
+         below — change it and every account stops verifying. */
+      iterations: 310000,
+
+      /* GATE:USERS:START — written by page-builder/tools/gate.py; do not hand-edit */
+      users: []
+      /* GATE:USERS:END */
+    };
+  </script>
+  <script src="../page-builder/scripts/gate.js"
+          onerror="document.documentElement.classList.add('umd-gate-error')" defer></script>
+  <!-- SHARED:gate:END -->
 </head>
 <body>
 
   <!-- ========================================
-       1. GLOBAL UNIVERSITY HEADER (red utility nav)
+       1. GLOBAL UNIVERSITY HEADER
+       Hardcoded. Never modified. Zero config.
   ======================================== -->
   <umd-element-navigation-utility data-alert-off="true" role="navigation" aria-label="Utility navigation"></umd-element-navigation-utility>
 
+  <umd-element-utility-header></umd-element-utility-header>
+
   <!-- ========================================
-       2. SITE HEADER — logo only, no nav
+       2. SITE NAVIGATION HEADER
+       UMCP Foundation logo and navigation.
+       Logo: local copy of downloaded UMCPF_black_horizontal_logo.png.
   ======================================== -->
   <umd-element-navigation-header sticky class="umd-layout-space-horizontal-full">
-    <a slot="logo" href="https://umd.edu">
-      <img src="../page-builder/images/logos/primary-logo-dark.svg" alt="University of Maryland" />
+    <a slot="logo" href="https://umcpf.umd.edu/">
+      <img src="../images/projects/umcpf/UMCPF_black_horizontal_logo.png" alt="University of Maryland College Park Foundation" />
     </a>
+    <nav slot="main-navigation">
+      <umd-element-nav-item>
+        <a slot="primary-link" href="https://umcpf.umd.edu/about-foundation">About the Foundation</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/about-foundation/announcements">Announcements</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/about-foundation/outstanding-service-award">Outstanding Service Award</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/about-foundation/foundation-staff">Foundation Staff</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/about-foundation/contact">Contact</a>
+      </umd-element-nav-item>
+      <umd-element-nav-item>
+        <a slot="primary-link" href="https://umcpf.umd.edu/board-trustees">Board of Trustees</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/board-trustees/board-chair">From the Board Chair</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/board-trustees/board-directory">Board Directory</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/board-trustees/committees">Committees</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/board-trustees/ex-officio-trustees">Ex Officio Trustees</a>
+      </umd-element-nav-item>
+      <umd-element-nav-item>
+        <a slot="primary-link" href="https://umcpf.umd.edu/resources">Resources</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/resources/investment-strategy">Investment Strategy</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/resources/governance-policies">Governance Policies</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/resources/reports">Reports</a>
+        <a slot="sub-link" href="https://umcpf.umd.edu/resources/tax-information">Tax Information</a>
+      </umd-element-nav-item>
+      <umd-element-nav-item>
+        <a slot="primary-link" href="https://go.umd.edu/umcpfzeck" target="_blank" rel="noopener">Trustee Login</a>
+      </umd-element-nav-item>
+    </nav>
   </umd-element-navigation-header>
 
   <!-- ========================================
-       3. SEARCH PAGE CONTENT
+       3. HERO
+       Standard background image hero (no data-display = image fills background).
+       Dark theme for white text over Hornbake Plaza photo.
+       Section carries umd-layout-vertical-landing — light quote section follows.
   ======================================== -->
-  <main>
-
-    <!-- BLACK HERO: heading only -->
-    <section class="search-hero">
-      <div class="umd-layout-space-horizontal-normal">
-        <h1 class="umd-campaign-medium search-page-h1">Search</h1>
+  <section class="umd-layout-vertical-landing">
+    <umd-element-hero data-theme="dark" data-animation data-layout-text="center">
+      <img slot="image" src="../images/projects/umcpf/HornbakePlaza_10242017_9204-1920x1080.jpg" alt="Soft poofy clouds over a bright and warm Hornbake Plaza, full of green and colorful tree leaves." />
+      <h1 slot="headline">Welcome</h1>
+      <div slot="text">
+        <p>Join us in support of past, present and future Terps</p>
       </div>
-    </section>
-
-    <!-- FORM: straddles the black/white boundary -->
-    <div class="search-form-overlap">
-      <div class="umd-layout-space-horizontal-normal">
-        <form class="umd-layout-background-highlight-light search-input-bar"
-              role="search" action="#" onsubmit="return false">
-          <label for="search-q" class="search-input-field">
-            <input id="search-q" class="umd-sans-larger" type="text" name="q" autocomplete="off"
-                   value="is UMD test optional?"
-                   aria-label="Ask a question of the University of Maryland" />
-          </label>
-          <button type="submit" class="search-submit" aria-label="Submit search">
-            <img src="../page-builder/images/icons/ai-search-icon.svg" alt="" />
-          </button>
-        </form>
+      <div slot="actions">
+        <umd-element-call-to-action data-display="primary" data-theme="dark">
+          <a href="https://umcpf.umd.edu/about-foundation">Learn about the UMCP Foundation</a>
+        </umd-element-call-to-action>
       </div>
-    </div>
-
-    <!-- WHITE CONTENT -->
-    <section class="search-content umd-layout-vertical-landing">
-      <div class="umd-layout-space-horizontal-small">
-
-        <div class="ai-summary-block">
-          <div class="ai-summary-label umd-sans-smaller">
-            <img src="../page-builder/images/icons/ai-star.svg" alt="" />
-            <span>AI Summary</span>
-          </div>
-          <div id="ai-summary-text" class="ai-summary-text">
-            <p>Yes, the University <a href="https://admissions.umd.edu/apply/freshman-application-faqs" target="_blank" rel="noopener noreferrer" title="Freshman Application FAQs" class="citation-link">of Maryland (UMD) is currently test-optional.</a></p>
-            <p>Here's what that means for applicants:</p>
-            <ul>
-              <li><strong>Policy Extension:</strong> UMD has extended its test-optional policy through the Spring and Fall 2027 application cycles. This means that students applying for admission between now and Fall 2027 are not required to submit standardized test scores (SAT/ACT).</li>
-              <li><strong>Applicant Choice:</strong> Students have the option to decide whether or not to include SAT/ACT scores with their application.</li>
-            </ul>
-            <div id="ai-summary-more" class="ai-summary-more">
-              <ul>
-                <li><strong>Indication on Application:</strong> You will be able to indicate your test-optional status directly on your application.</li>
-                <li><strong>Final Decision:</strong> Once you submit your application, your response to the test-optional question is final and cannot be changed. If you submit scores but indicate you want your application evaluated without them, the Admission Committee will not consider those scores.</li>
-                <li><strong>Holistic Review:</strong> For students who choose not to submit test scores, UMD's Admission Committee uses a holistic, full-file review process. This review considers various factors, including:
-                  <ul>
-                    <li>Grades earned in academic coursework</li>
-                    <li>Trends in your grades</li>
-                    <li>Performance in honors, International Baccalaureate, and Advanced Placement (A/AS level) courses</li>
-                    <li>Letters of recommendation</li>
-                    <li>Your essay</li>
-                    <li>Extracurricular activities and other achievements</li>
-                  </ul>
-                </li>
-                <li><strong>No Disadvantage:</strong> A decision not to submit SAT or ACT scores will <a href="https://admissions.umd.edu/apply/transfer-application-faqs" target="_blank" rel="noopener noreferrer" title="Transfer Application FAQ" class="citation-link">not harm a student's admission chances.</a></li>
-                <li><strong>Impact on Other Programs:</strong> The test-optional review extends to:
-                  <ul>
-                    <li>Merit scholarships</li>
-                    <li>Living-learning and other special programs</li>
-                    <li>Limited Enrollment Programs (LEPs)</li>
-                  </ul>
-                </li>
-                <li><strong>Superscoring:</strong> If you choose to submit scores, UMD superscores both the SAT and ACT, meaning they use the highest subscores from each test in their review.</li>
-                <li><strong>Writing Portion and Subject Tests:</strong> UMD does not require scores from the writing sections of the SAT or ACT, nor do they require subject tests. Even if sent, these scores are not among the 24 factors reviewed for admission.</li>
-                <li><strong>English Language Proficiency:</strong> Standardized tests for English language proficiency (such as Duolingo English Test, IELTS, and TOEFL) are still required for non-native English speakers.</li>
-              </ul>
-              <p><strong>For Transfer Students:</strong>
-              Traditionally, transfer students with fewer than 30 semester or 45 quarter hours at the time of application would need to submit SAT/ACT scores. However, UMD's current test-optional policy applies to them as well, allowing them to choose whether or not <a href="https://admissions.umd.edu/apply/freshman-applicants" target="_blank" rel="noopener noreferrer" title="Freshman Applicants" class="citation-link">to have their test scores considered.</a></p>
-              <p><strong>Future of the Policy:</strong>
-              UMD initially implemented its test-optional policy due to the limitations of testing during the COVID-19 pandemic. The university is currently assessing the impact of this policy on students and the admission process to inform its standardized test score requirement for application cycles beyond Fall 2027.</p>
-              <p><strong>Clarifying Follow-up Questions:</strong>
-              To provide the most relevant information, could you please clarify if you are applying as a:</p>
-              <ul>
-                <li>Freshman applicant or a transfer applicant?</li>
-                <li>If a transfer applicant, how many college credits will you have completed by the time of application?</li>
-              </ul>
-              <p>For the most current and complete information, please refer <a href="https://today.umd.edu/briefs/umd-extends-test-optional-admissions-through-fall-2025" target="_blank" rel="noopener noreferrer" title="UMD Extends Test-optional Admissions Through Fall 2025" class="citation-link">to the Office of Undergraduate Admissions.</a></p>
-            </div>
-          </div>
-          <button type="button" id="ai-summary-toggle" class="umd-action-outline-block ai-summary-show-more">
-            Show more
-          </button>
-        </div>
-
-        <div class="featured-results-block">
-          <p class="featured-results-label">Featured Results</p>
-          <div class="featured-results-list">
-
-            <umd-element-card data-display="list">
-              <a slot="image" href="https://admissions.umd.edu/apply/freshman-application-faqs">
-                <img src="../page-builder/images/large/campus/hornbake-plaza.jpg"
-                     alt="Hornbake Plaza on the University of Maryland campus" />
-              </a>
-              <p slot="eyebrow">UMD Admissions</p>
-              <h3 slot="headline">
-                <a href="https://admissions.umd.edu/apply/freshman-application-faqs">Freshman Application FAQs</a>
-              </h3>
-              <div slot="text">
-                <p>Find answers to common questions about applying as a first-year student to the University of Maryland, including test-optional policies.</p>
-              </div>
-              <p slot="date" class="result-url">admissions.umd.edu/apply/freshman-application-faqs</p>
-            </umd-element-card>
-
-            <umd-element-card data-display="list">
-              <a slot="image" href="https://admissions.umd.edu/discover/class-profile">
-                <img src="../page-builder/images/large/campus/Testudo_Students_03042022_SC_9823.webp"
-                     alt="UMD students on campus" />
-              </a>
-              <p slot="eyebrow">UMD Admissions</p>
-              <h3 slot="headline">
-                <a href="https://admissions.umd.edu/discover/class-profile">First-Year Class Profile</a>
-              </h3>
-              <div slot="text">
-                <p>See the academic credentials, geographic mix, and other characteristics of the most recently admitted first-year class at Maryland.</p>
-              </div>
-              <p slot="date" class="result-url">admissions.umd.edu/discover/class-profile</p>
-            </umd-element-card>
-
-            <umd-element-card data-display="list">
-              <a slot="image" href="https://www.umd.edu/admissions">
-                <img src="../page-builder/images/large/campus/thurgood-marshall-hall-spring.webp"
-                     alt="Thurgood Marshall Hall in spring" />
-              </a>
-              <p slot="eyebrow">University of Maryland</p>
-              <h3 slot="headline">
-                <a href="https://www.umd.edu/admissions">Admissions</a>
-              </h3>
-              <div slot="text">
-                <p>Explore admissions pathways for first-year, transfer, graduate, and international students applying to the University of Maryland.</p>
-              </div>
-              <p slot="date" class="result-url">umd.edu/admissions</p>
-            </umd-element-card>
-
-          </div>
-        </div>
-
-        <!--
-        <div class="other-results-block">
-          [More Results cards — commented out, replaced by expand-search-block below]
-        </div>
-        -->
-
-        <div class="expand-search-block">
-          <p class="featured-results-label expand-search-label">Expand your search</p>
-          <div class="umd-pill-list">
-            <a href="#">Honors College Admissions</a>
-            <a href="#">Academic Scholarships</a>
-            <a href="#">Academics</a>
-            <a href="#">Application Deadlines</a>
-            <a href="#">Transfer Student Admissions</a>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- .search-content -->
-  </main>
+    </umd-element-hero>
+  </section>
 
   <!-- ========================================
-       4. FOOTER — mega, no visual, default DS links
+       4. BOARD CHAIR QUOTE
+       Featured quote from Albert P. Carey '74, Chair of the Board of Trustees.
+       umd-element-quote with data-display="featured" for visual prominence.
+       Wrapped in normal (1280px) horizontal lock per RULES.md §12.
+       Source content is quote + attribution only — umd-element-quote is correct
+       per RULES.md §5 (pathway-highlight requires real body copy in slot="text").
   ======================================== -->
-  <umd-element-footer>
-    <a slot="logo" href="https://umd.edu">
+  <section class="umd-layout-vertical-landing">
+    <div class="umd-layout-space-horizontal-normal">
+      <umd-element-quote data-display="featured">
+        <img slot="image" src="../images/projects/umcpf/AlCarey_10282021_JC_204814.jpg" alt="Albert P. Carey '74" />
+        <p slot="quote">I invite you to support past, present and future Terps; honor our institution's traditions; and celebrate its far-reaching impact and bright future. And thank you for all you have done and will continue to do to move Maryland Fearlessly Forward.</p>
+        <p slot="attribution">Albert P. Carey '74</p>
+        <p slot="attribution-sub-text">Chair, Board of Trustees</p>
+      </umd-element-quote>
+    </div>
+  </section>
+
+  <!-- ========================================
+       5. FUNDRAISING PRIORITIES
+       Two flagship giving priorities from the source page.
+       Section intro wide labels the section; 2-column card grid below.
+       data-visual-image-aligned="true" ensures consistent image crop height across both cards.
+       Wrapper div carries umd-layout-vertical-landing-child (RULES.md §10).
+  ======================================== -->
+  <section class="umd-layout-vertical-landing">
+    <div class="umd-layout-space-horizontal-normal">
+      <umd-element-section-intro class="umd-layout-vertical-landing-child">
+        <h2 slot="headline">Fundraising Priorities</h2>
+      </umd-element-section-intro>
+      <div class="umd-layout-grid-masonry">
+
+        <umd-element-card-overlay type="image" class="size-large">
+          <img slot="image" src="../images/projects/umcpf/Testudo_11302017_9791.jpg" alt="Testudo statue at McKeldin Library" />
+          <h3 slot="headline">
+            <a href="https://giving.umd.edu/campaigns/ag-priorities-causes/urgent-needs/urgent-needs-campus-pantry" target="_blank" rel="noopener">The Campus Pantry</a>
+          </h3>
+          <p slot="text">Your gift to the Campus Pantry can help alleviate food insecurity among the UMD campus community by providing access to healthy, nutritious food and other resources.</p>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="dark">
+              <a href="https://giving.umd.edu/campaigns/ag-priorities-causes/urgent-needs/urgent-needs-campus-pantry" target="_blank" rel="noopener">Learn More About the Campus Pantry</a>
+            </umd-element-call-to-action>
+          </div>
+        </umd-element-card-overlay>
+
+        <umd-element-card-overlay type="image" class="size-large">
+          <img slot="image" src="../images/projects/umcpf/ThurgoodMarshallHall_DoGood_05222023_JC_9303.JPG" alt="Thurgood Marshall Hall — Do Good Campus initiative" />
+          <h3 slot="headline">
+            <a href="https://giving.umd.edu/make-a-gift?kwoDCpreselect=KDC-PP23357" target="_blank" rel="noopener">Do Good Campus</a>
+          </h3>
+          <p slot="text">Your support can power innovative teams, passionate leaders and curious problem solvers, who have big ideas and are taking action to tackle issues affecting our communities locally, nationally and globally.</p>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary" data-theme="dark">
+              <a href="https://giving.umd.edu/make-a-gift?kwoDCpreselect=KDC-PP23357" target="_blank" rel="noopener">Make a gift to the Do Good Campus Operating Fund</a>
+            </umd-element-call-to-action>
+          </div>
+        </umd-element-card-overlay>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       6. FUNDRAISING NEWS — MARYLAND TODAY — MARYLAND TODAY FEED
+       Dynamic news feed filtered to fundraising/giving category.
+       Token and category ID (10341) taken directly from umcpf.umd.edu source HTML.
+       Section intro wide with "View All Articles" CTA at right.
+       Wrapper div carries umd-layout-vertical-landing-child per RULES.md §10.
+  ======================================== -->
+  <section class="umd-layout-vertical-landing">
+    <div class="umd-layout-space-horizontal-larger">
+      <div class="umd-layout-vertical-landing-child">
+        <umd-element-section-intro-wide>
+          <h2 slot="headline">Fundraising News</h2>
+          <div slot="actions">
+            <umd-element-call-to-action data-display="secondary">
+              <a href="https://today.umd.edu/search?categories=division-university-relations" target="_blank" rel="noopener">View All Articles</a>
+            </umd-element-call-to-action>
+          </div>
+        </umd-element-section-intro-wide>
+      </div>
+      <div class="news-grid-three">
+        <umd-element-card data-visual-image-aligned="true">
+          <img slot="image" src="../page-builder/images/small/people/2-female-students-in-booth-pathway1.jpg" alt="Two students collaborating" />
+          <p slot="eyebrow">Philanthropy</p>
+          <a slot="headline" href="https://today.umd.edu">Alum Gives $1M to Bolster Do Good Education, Women in Engineering</a>
+          <p slot="text">A generous gift from a UMD alumna will create new opportunities for students in the Do Good Institute and expand support for women pursuing engineering degrees.</p>
+        </umd-element-card>
+        <umd-element-card data-visual-image-aligned="true">
+          <img slot="image" src="../page-builder/images/small/people/student-group.jpg" alt="UMD students celebrating Giving Day" />
+          <p slot="eyebrow">Giving Day</p>
+          <a slot="headline" href="https://today.umd.edu">Giving Day Raises Record-Smashing $9.4M</a>
+          <p slot="text">Maryland's annual day of giving broke every previous record, with thousands of donors from around the world coming together to invest in the university's future.</p>
+        </umd-element-card>
+        <umd-element-card data-visual-image-aligned="true">
+          <img slot="image" src="../page-builder/images/small/people/2-people-at-laptop.jpg" alt="Two people working together at a laptop" />
+          <p slot="eyebrow">Giving Day</p>
+          <a slot="headline" href="https://today.umd.edu">The Matchmakers of Giving Day</a>
+          <p slot="text">Behind every record-breaking Giving Day is a team of dedicated volunteers and challenge donors who match gifts and inspire the Maryland community to give.</p>
+        </umd-element-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       7. FOOTER
+       Visual footer with campus background image.
+  ======================================== -->
+  <umd-element-footer data-display="visual">
+    <a slot="logo" href="https://umcpf.umd.edu/">
       <img src="../page-builder/images/logos/footer-logo.svg" alt="University of Maryland" />
     </a>
+    <img slot="image" src="../page-builder/images/large/campus/footer-campus.jpg" alt="" />
   </umd-element-footer>
 
-  <script>
-    (function () {
-      var btn = document.getElementById('ai-summary-toggle');
-      var more = document.getElementById('ai-summary-more');
-      if (!btn || !more) return;
-      btn.addEventListener('click', function () {
-        var visible = more.classList.toggle('visible');
-        btn.textContent = visible ? 'Show less' : 'Show more';
-      });
-    })();
-  </script>
 </body>
 </html>
